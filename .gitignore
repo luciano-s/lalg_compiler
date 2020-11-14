@@ -7,4 +7,4 @@ src/__pycache__/
 *.pyo
 instance/
 .webassets-cache
-.idea/*
+/.idea/*
