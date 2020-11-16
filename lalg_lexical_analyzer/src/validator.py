@@ -17,22 +17,28 @@ class Validator:
             "<SINGLE_LINE_COMMENT>"
             "<CHARACTER>": {},
             "<IDENTIFIER>": {"validate": Validator.is_identifier},
+            "<COMMAND_END>": {"validate": Validator.is_command_end},
             "<SIMPLE_TYPE>": {},
         }
         self.validators = [
             Validator.is_number,
             Validator.is_relation,
             # Validator.is_digit,
+            Validator.is_identifier,
             Validator.is_plus_sign,
             Validator.is_minus_sign,
             Validator.is_multiplication_sign,
             Validator.is_division_sign,
-            # Validator.is_equals_sign,
             Validator.is_open_parenthesis,
             Validator.is_close_parenthesis,
-            Validator.is_identifier,
             Validator.is_simple_type,
-            Validator.is_keyword
+            Validator.is_keyword,
+            Validator.is_bool_value,
+            Validator.is_command_end,
+            Validator.is_comma,
+            Validator.is_colon,
+            Validator.is_dot,
+            Validator.is_equals_sign
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -45,7 +51,7 @@ class Validator:
             ).pop()
 
         except Exception as inst:
-            print(inst)
+            # print(inst)
             return {lexem: None}
 
     def validate_lexems(self, lexem_list: list) -> list:
@@ -90,7 +96,7 @@ class Validator:
 
     @classmethod
     def is_division_sign(cls, value: str) -> dict:
-        division_sign_pattern = re.compile("/")
+        division_sign_pattern = re.compile("div")
         check = (
             lambda x: {x: "<DIVISION_SIGN>"}
             if division_sign_pattern.fullmatch(x)
@@ -100,7 +106,7 @@ class Validator:
 
     @classmethod
     def is_equals_sign(cls, value: str) -> dict:
-        equals_sign_pattern = re.compile("=")
+        equals_sign_pattern = re.compile("\:=")
         check = (
             lambda x: {x: "<EQUALS_SIGN>"}
             if equals_sign_pattern.fullmatch(x)
@@ -113,7 +119,7 @@ class Validator:
         open_parenthesis_pattern = re.compile("[(]")
         check = (
             lambda x: {x: "<OPEN_PARENTHESIS>"}
-            if open_parenthesis_pattern.match(x)
+            if open_parenthesis_pattern.fullmatch(x)
             else {x: None}
         )
         return check(value)
@@ -123,7 +129,47 @@ class Validator:
         close_parenthesis_pattern = re.compile("[)]")
         check = (
             lambda x: {x: "<CLOSE_PARENTHESIS>"}
-            if close_parenthesis_pattern.match(x)
+            if close_parenthesis_pattern.fullmatch(x)
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_command_end(cls, value: str) -> dict:
+        close_parenthesis_pattern = re.compile("\;")
+        check = (
+            lambda x: {x: "<COMMAND_END>"}
+            if close_parenthesis_pattern.fullmatch(x)
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_comma(cls, value: str) -> dict:
+        close_parenthesis_pattern = re.compile("\,")
+        check = (
+            lambda x: {x: "<COMMA>"}
+            if close_parenthesis_pattern.fullmatch(x)
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_colon(cls, value: str) -> dict:
+        close_parenthesis_pattern = re.compile("\:")
+        check = (
+            lambda x: {x: "<COLON>"}
+            if close_parenthesis_pattern.fullmatch(x)
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_dot(cls, value: str) -> dict:
+        close_parenthesis_pattern = re.compile("\.")
+        check = (
+            lambda x: {x: "<DOT>"}
+            if close_parenthesis_pattern.fullmatch(x)
             else {x: None}
         )
         return check(value)
@@ -154,6 +200,16 @@ class Validator:
         check = (
             lambda x: {x: "<RELATION>"}
             if value in relations
+            else {x: None}
+        )
+        return check(value)
+
+    @classmethod
+    def is_bool_value(cls, value: str) -> dict:
+        booleans = ["true", "false"]
+        check = (
+            lambda x: {x: "<BOOL_VALUE>"}
+            if value in booleans
             else {x: None}
         )
         return check(value)
