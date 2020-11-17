@@ -46,7 +46,8 @@ class Validator:
             Validator.is_var_declaration,
             Validator.is_part_var_declaration,
             Validator.is_formal_parameter_section,
-            Validator.is_formal_parameters
+            Validator.is_formal_parameters,
+            Validator.is_procedure_declaration
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -326,6 +327,18 @@ class Validator:
             if checked:
                 return Token("", "<FORMAL_PARAMETERS>", None)
 
+        return Token("", None, None)
+
+    @classmethod
+    def is_procedure_declaration(cls, tk_list: list) -> dict:
+        if 3 < len(tk_list) <= 5 and \
+                tk_list[0] == '<KEYWORD_PROCEDURE>' and \
+                tk_list[1] == '<IDENTIFIER>' and \
+                tk_list[-2] == '<COMMAND_END>' and \
+                tk_list[-1] == '<BLOC>':
+            if len(tk_list) == 5 and tk_list[2] != '<FORMAL_PARAMETERS>':
+                return Token("", None, None)
+            return Token("", "<PROCEDURE_DECLARATION>", None)
         return Token("", None, None)
 
 

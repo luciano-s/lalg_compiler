@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # Tokens().generate_tokens(['<SIMPLE_TYPE>', '<IDENTIFIER>', '<COMMA>',
     #                           '<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMAND_END>'])
 
-    # <FORMAL_PARAMETERS> 
+    # <FORMAL_PARAMETERS>
     # Tokens().generate_tokens(
     #     ['<VAR_DECLARATION>', '<COMMAND_END>', '<VAR_DECLARATION>'])
     # Tokens().generate_tokens(
@@ -132,6 +132,17 @@ if __name__ == "__main__":
     #     ['<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>', '<CLOSE_PARENTHESIS>'])
     # Tokens().generate_tokens(
     #     ['<OPEN_PARENTHESIS>', '<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>'])
+
+    # PROCEDURE_DECLARATION
+    # Tokens().generate_tokens(
+    #     ['<KEYWORD_PROCEDURE>', '<IDENTIFIER>', '<FORMAL_PARAMETERS>', '<COMMAND_END>', '<BLOC>'])
+    # Tokens().generate_tokens(
+    #     ['<KEYWORD_PROCEDURE>', '<IDENTIFIER>', '<COMMAND_END>', '<BLOC>'])
+    # Tokens().generate_tokens(
+    #     ['<KEYWORD_PROCEDURE>', '<IDENTIFIER>', '<BATATA>', '<COMMAND_END>', '<BLOC>'])
+    # Tokens().generate_tokens(
+    #     ['<KEYWORD_PROCEDURE>', '<COMMAND_END>', '<BLOC>'])
+
     str_file = '''program correto;
 int a, b, c;
 boolean d, e, f;
