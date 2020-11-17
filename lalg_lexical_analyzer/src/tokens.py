@@ -110,6 +110,12 @@ if __name__ == "__main__":
     #     ['<VAR_DECLARATION>', '<COMMAND_END>', '<VAR_DECLARATION>'])
     # Tokens().generate_tokens(
     #     ['<VAR_DECLARATION>', '<COMMAND_END>'])
+    Tokens().generate_tokens(
+        ['<KEYWORD_VAR>', '<IDENTIFIER>', '<COLON>', '<SIMPLE_TYPE>'])
+    Tokens().generate_tokens(
+        ['<KEYWORD_VAR>', '<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
+    Tokens().generate_tokens(
+        ['<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
     str_file = '''program correto;
 int a, b, c;
 boolean d, e, f;

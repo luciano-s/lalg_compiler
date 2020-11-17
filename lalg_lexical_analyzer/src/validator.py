@@ -44,7 +44,8 @@ class Validator:
         self.token_validators = [
             Validator.is_identifier_list,
             Validator.is_var_declaration,
-            Validator.is_part_var_declaration
+            Validator.is_part_var_declaration,
+            Validator.is_formal_parameter_section
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -291,9 +292,16 @@ class Validator:
                 break
             i += 1
         if checked:
-            return Token(tk_list, '<PART_VAR_DECLARATION>', None)
+            return Token(tk_list, '<VAR_DECLARATION_PART>', None)
         else:
             return Token("", None, None)
+
+    @classmethod
+    def is_formal_parameter_section(cls, tk_list: list) -> dict:
+        i = 1 if tk_list[0] == '<KEYWORD_VAR>' else 0
+        if len(tk_list) > 2 and tk_list[i] == '<IDENTIFIER_LIST>' and tk_list[-2] == '<COLON>' and tk_list[-1] == '<SIMPLE_TYPE>':
+            return Token("", "<FORMAL_PARAMETERS_SECTION>", None)
+        return Token("", None, None)
 
 
 if __name__ == "__main__":
