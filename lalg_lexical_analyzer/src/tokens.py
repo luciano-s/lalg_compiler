@@ -103,19 +103,35 @@ if __name__ == "__main__":
     #     ['<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>'])
     # Tokens().generate_tokens(
     #     ['<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMA>'])
+    # Tokens().generate_tokens(
+    #     ['<IDENTIFIER>', '<IDENTIFIER>'])
     # Tokens().generate_tokens(['<IDENTIFIER>'])
     # Tokens().generate_tokens(['<SIMPLE_TYPE>', '<IDENTIFIER>', '<COMMA>',
     #                           '<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMAND_END>'])
+
+    # <FORMAL_PARAMETERS> 
     # Tokens().generate_tokens(
     #     ['<VAR_DECLARATION>', '<COMMAND_END>', '<VAR_DECLARATION>'])
     # Tokens().generate_tokens(
     #     ['<VAR_DECLARATION>', '<COMMAND_END>'])
-    Tokens().generate_tokens(
-        ['<KEYWORD_VAR>', '<IDENTIFIER>', '<COLON>', '<SIMPLE_TYPE>'])
-    Tokens().generate_tokens(
-        ['<KEYWORD_VAR>', '<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
-    Tokens().generate_tokens(
-        ['<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
+    # Tokens().generate_tokens(
+    #     ['<KEYWORD_VAR>', '<IDENTIFIER>', '<COLON>', '<SIMPLE_TYPE>'])
+    # Tokens().generate_tokens(
+    #     ['<KEYWORD_VAR>', '<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
+    # Tokens().generate_tokens(
+    #     ['<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
+
+
+    # Tokens().generate_tokens(
+    #     ['<OPEN_PARENTHESIS>', '<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>', '<CLOSE_PARENTHESIS>'])
+    # Tokens().generate_tokens(
+    #     ['<OPEN_PARENTHESIS>', '<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<CLOSE_PARENTHESIS>'])
+    # Tokens().generate_tokens(
+    #     ['<OPEN_PARENTHESIS>', '<FORMAL_PARAMETERS_SECTION>', '<FORMAL_PARAMETERS_SECTION>', '<CLOSE_PARENTHESIS>'])
+    # Tokens().generate_tokens(
+    #     ['<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>', '<CLOSE_PARENTHESIS>'])
+    # Tokens().generate_tokens(
+    #     ['<OPEN_PARENTHESIS>', '<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>'])
     str_file = '''program correto;
 int a, b, c;
 boolean d, e, f;

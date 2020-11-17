@@ -45,7 +45,8 @@ class Validator:
             Validator.is_identifier_list,
             Validator.is_var_declaration,
             Validator.is_part_var_declaration,
-            Validator.is_formal_parameter_section
+            Validator.is_formal_parameter_section,
+            Validator.is_formal_parameters
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -301,6 +302,30 @@ class Validator:
         i = 1 if tk_list[0] == '<KEYWORD_VAR>' else 0
         if len(tk_list) > 2 and tk_list[i] == '<IDENTIFIER_LIST>' and tk_list[-2] == '<COLON>' and tk_list[-1] == '<SIMPLE_TYPE>':
             return Token("", "<FORMAL_PARAMETERS_SECTION>", None)
+        return Token("", None, None)
+
+    @classmethod
+    def is_formal_parameters(cls, tk_list: list) -> dict:
+        if len(tk_list) > 2 and tk_list[0] == '<OPEN_PARENTHESIS>' and tk_list[-1] == '<CLOSE_PARENTHESIS>':
+            checked = False
+            i = 1
+            while True:
+                if i < len(tk_list)-1:
+                    print(tk_list[i], tk_list[i+1])
+                    if tk_list[i] == '<FORMAL_PARAMETERS_SECTION>':
+                        checked = True
+                    else:
+                        break
+                    if i+1 < len(tk_list)-1:
+                        checked = False
+                        if tk_list[i+1] != '<COMMAND_END>':
+                            break
+                else:
+                    break
+                i += 2
+            if checked:
+                return Token("", "<FORMAL_PARAMETERS>", None)
+
         return Token("", None, None)
 
 
