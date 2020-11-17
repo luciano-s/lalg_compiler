@@ -47,7 +47,8 @@ class Validator:
             Validator.is_part_var_declaration,
             Validator.is_formal_parameter_section,
             Validator.is_formal_parameters,
-            Validator.is_procedure_declaration
+            Validator.is_procedure_declaration,
+            Validator.is_subroutines_declaration_part
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -340,6 +341,22 @@ class Validator:
                 return Token("", None, None)
             return Token("", "<PROCEDURE_DECLARATION>", None)
         return Token("", None, None)
+
+    @classmethod
+    def is_subroutines_declaration_part(cls, tk_list: list) -> dict:
+        i = 0
+        checked = True
+        while True:
+            if i < len(tk_list):
+                if tk_list[i] != '<PROCEDURE_DECLARATION>' or tk_list[i+1] != '<COMMAND_END>':
+                    checked = False
+            else:
+                break
+            i += 2
+        if checked:
+            return Token(tk_list, '<SUBROUTINES_DECLARATION_PART>', None)
+        else:
+            return Token("", None, None)
 
 
 if __name__ == "__main__":

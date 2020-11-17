@@ -121,7 +121,6 @@ if __name__ == "__main__":
     # Tokens().generate_tokens(
     #     ['<IDENTIFIER_LIST>', '<COLON>', '<SIMPLE_TYPE>'])
 
-
     # Tokens().generate_tokens(
     #     ['<OPEN_PARENTHESIS>', '<FORMAL_PARAMETERS_SECTION>', '<COMMAND_END>', '<FORMAL_PARAMETERS_SECTION>', '<CLOSE_PARENTHESIS>'])
     # Tokens().generate_tokens(
@@ -142,6 +141,18 @@ if __name__ == "__main__":
     #     ['<KEYWORD_PROCEDURE>', '<IDENTIFIER>', '<BATATA>', '<COMMAND_END>', '<BLOC>'])
     # Tokens().generate_tokens(
     #     ['<KEYWORD_PROCEDURE>', '<COMMAND_END>', '<BLOC>'])
+
+    # SUBROUTINES DECLARATION PART
+    # Tokens().generate_tokens(
+    #     ['<PROCEDURE_DECLARATION>', '<COMMAND_END>'])
+    # Tokens().generate_tokens(
+    #     ['<PROCEDURE_DECLARATION>'])
+    # Tokens().generate_tokens(
+    #     ['<PROCEDURE_DECLARATION>', '<COMMAND_END>', '<COMMAND_END>'])
+    # Tokens().generate_tokens(
+    #     ['<PROCEDURE_DECLARATION>', '<COMMAND_END>', '<PROCEDURE_DECLARATION>', '<COMMAND_END>'])
+    # Tokens().generate_tokens(
+    #     ['<COMMAND_END>'])
 
     str_file = '''program correto;
 int a, b, c;
