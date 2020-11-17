@@ -71,6 +71,14 @@ class Tokens:
     def split_tokens(self, inputs: list) -> list:
         return [self.split_token(in_) for in_ in inputs]
 
+    def generate_tokens(self, inputs: list) -> list:
+        token_list = []
+        for token in inputs:
+            token_type = self.validator.validate_token([*token_list, token])
+            # print([*token_list, token])
+            token_list.append(token)
+        print(inputs, "->", token_type.token)
+
 
 if __name__ == "__main__":
     # print(Tokens().split_token("program correto;"))
@@ -90,7 +98,18 @@ if __name__ == "__main__":
     # print(Tokens().split_token("c:=a div b"))
     # print(Tokens().split_token("a:=a-1"))
     # print(Tokens().split_token("end."))
-    print(Tokens().split_token("if (a<1)@"))
+    # print(Tokens().split_token("if (a<1)@"))
+    # Tokens().generate_tokens(
+    #     ['<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>'])
+    # Tokens().generate_tokens(
+    #     ['<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMA>'])
+    # Tokens().generate_tokens(['<IDENTIFIER>'])
+    # Tokens().generate_tokens(['<SIMPLE_TYPE>', '<IDENTIFIER>', '<COMMA>',
+    #                           '<IDENTIFIER>', '<COMMA>', '<IDENTIFIER>', '<COMMAND_END>'])
+    # Tokens().generate_tokens(
+    #     ['<VAR_DECLARATION>', '<COMMAND_END>', '<VAR_DECLARATION>'])
+    # Tokens().generate_tokens(
+    #     ['<VAR_DECLARATION>', '<COMMAND_END>'])
     str_file = '''program correto;
 int a, b, c;
 boolean d, e, f;
@@ -128,7 +147,7 @@ begin
 	end
 end.'''
 
-    str_file2 ='''program correto;
+    str_file2 = '''program correto;
 int &a, b, c;
 boolean d, e, f;
 
@@ -162,5 +181,5 @@ begin
 		a:=a-1
 	end
 end.'''
-    [print(i+1,Tokens().split_token(x)) for i, x in enumerate(str_file2.split("\n"))]
+    # [print(i+1,Tokens().split_token(x)) for i, x in enumerate(str_file.split("\n"))]
     # print(Tokens().split_tokens())

@@ -1,4 +1,5 @@
 import re
+from token import Token
 
 
 class Validator:
@@ -40,6 +41,11 @@ class Validator:
             Validator.is_dot,
             Validator.is_equals_sign
         ]
+        self.token_validators = [
+            Validator.is_identifier_list,
+            Validator.is_var_declaration,
+            Validator.is_part_var_declaration
+        ]
 
     def validate_lexem(self, lexem: str) -> dict:
         try:
@@ -53,6 +59,21 @@ class Validator:
         except Exception as inst:
             # print(inst)
             return {lexem: None}
+
+    def validate_token(self, tk_list: list) -> Token:
+        # print(tk_list)
+        try:
+            return list(
+                filter(
+                    lambda x: x.token != None,
+                    [validator(tk_list)
+                     for validator in self.token_validators],
+                )
+            ).pop()
+
+        except Exception as inst:
+            # print(inst)
+            return Token("", None, None)
 
     def validate_lexems(self, lexem_list: list) -> list:
         return [self.validate_lexem(lexem) for lexem in lexem_list]
@@ -217,13 +238,62 @@ class Validator:
     @classmethod
     def is_keyword(cls, value: str) -> dict:
         keyword = ["program", "procedure", "var", "read", "write",
-                     "begin", "end", "if", "then", "else", "while", "do"]
+                   "begin", "end", "if", "then", "else", "while", "do"]
         check = (
             lambda x: {x: "<KEYWORD_"+x.upper()+">"}
             if value in keyword
             else {x: None}
         )
         return check(value)
+
+    @classmethod
+    def is_identifier_list(cls, tk_list: list) -> dict:
+        checked = False
+        i = 0
+        while True:
+            if i < len(tk_list):
+                # print(i, i+1)
+                if tk_list[i] == '<IDENTIFIER>':
+                    checked = True
+                else:
+                    break
+                if i+1 < len(tk_list) and tk_list[i+1] == '<COMMA>':
+                    checked = False
+                    i += 1
+            else:
+                break
+            i += 1
+        if checked:
+            return Token(tk_list, '<IDENTIFIER_LIST>', None)
+        else:
+            return Token("", None, None)
+
+    @classmethod
+    def is_var_declaration(cls, tk_list: list) -> dict:
+        if tk_list[0] == '<SIMPLE_TYPE>' and tk_list[-1] == '<COMMAND_END>' and cls.is_identifier_list(tk_list[1:-1]):
+            return Token("", "<VAR_DECLARATION>", None)
+        return Token("", None, None)
+
+    @classmethod
+    def is_part_var_declaration(cls, tk_list: list) -> dict:
+        checked = False
+        i = 0
+        while True:
+            if i < len(tk_list):
+                if tk_list[i] == '<VAR_DECLARATION>':
+                    checked = True
+                else:
+                    break
+                if i+1 < len(tk_list) and tk_list[i+1] == '<COMMAND_END>':
+                    checked = False
+                    i += 1
+            else:
+                break
+            i += 1
+        if checked:
+            return Token(tk_list, '<PART_VAR_DECLARATION>', None)
+        else:
+            return Token("", None, None)
 
 
 if __name__ == "__main__":
