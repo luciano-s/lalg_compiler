@@ -1,4 +1,3 @@
-
 # from src.validator import Validator
 # from src.token import Token
 
@@ -12,9 +11,8 @@ class Tokens:
 
     def verify_composite(self, in_, col, token_list):
         if in_ != "":
-            col_i = col-len(in_)
-            token_list.append(
-                (col_i, col, self.validator.validate_lexem(in_)))
+            col_i = col - len(in_)
+            token_list.append((col_i, col, self.validator.validate_lexem(in_)))
             in_ = ""
         return in_
 
@@ -26,11 +24,11 @@ class Tokens:
         previous_token = ""
         for c in input:
             # current_token = self.validator.validate_lexem(c)
-            current_token = self.validator.validate_lexem(previous_token+c)
+            current_token = self.validator.validate_lexem(previous_token + c)
             # print("P:", previous_token+c)
             # print(current_token[previous_token+c])
 
-            if current_token[previous_token+c] is None and previous_token != "":
+            if current_token[previous_token + c] is None and previous_token != "":
                 # print("P:", previous_token)
                 token_type = self.validator.validate_lexem(previous_token)
                 # token_list.append(Token(previous_token, token_type[previous_token], col)
@@ -153,8 +151,11 @@ if __name__ == "__main__":
     #     ['<PROCEDURE_DECLARATION>', '<COMMAND_END>', '<PROCEDURE_DECLARATION>', '<COMMAND_END>'])
     # Tokens().generate_tokens(
     #     ['<COMMAND_END>'])
+    Tokens().generate_tokens(
+        ["<KEYWORD_PROGRAM>", "<IDENTIFIER>", "<COMMAND_END>", "<BLOC>", "<DOT>"]
+    )
 
-    str_file = '''program correto;
+    str_file = """program correto;
 int a, b, c;
 boolean d, e, f;
 
@@ -189,9 +190,9 @@ begin
 			b:=2;
 		a:=a-1
 	end
-end.'''
+end."""
 
-    str_file2 = '''program correto;
+    str_file2 = """program correto;
 int &a, b, c;
 boolean d, e, f;
 
@@ -224,6 +225,6 @@ begin
 			b:=2;
 		a:=a-1
 	end
-end.'''
+end."""
     # [print(i+1,Tokens().split_token(x)) for i, x in enumerate(str_file.split("\n"))]
     # print(Tokens().split_tokens())

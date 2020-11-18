@@ -15,8 +15,7 @@ class Validator:
             "<DIVISION_SIGN>": {},
             "<EQUALS_SIGN>": {},
             "<MULTI_LINE_COMMENT>": {},
-            "<SINGLE_LINE_COMMENT>"
-            "<CHARACTER>": {},
+            "<SINGLE_LINE_COMMENT>" "<CHARACTER>": {},
             "<IDENTIFIER>": {"validate": Validator.is_identifier},
             "<COMMAND_END>": {"validate": Validator.is_command_end},
             "<SIMPLE_TYPE>": {},
@@ -39,7 +38,7 @@ class Validator:
             Validator.is_comma,
             Validator.is_colon,
             Validator.is_dot,
-            Validator.is_equals_sign
+            Validator.is_equals_sign,
         ]
         self.token_validators = [
             Validator.is_identifier_list,
@@ -48,7 +47,8 @@ class Validator:
             Validator.is_formal_parameter_section,
             Validator.is_formal_parameters,
             Validator.is_procedure_declaration,
-            Validator.is_subroutines_declaration_part
+            Validator.is_subroutines_declaration_part,
+            Validator.is_program,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -70,8 +70,7 @@ class Validator:
             return list(
                 filter(
                     lambda x: x.token != None,
-                    [validator(tk_list)
-                     for validator in self.token_validators],
+                    [validator(tk_list) for validator in self.token_validators],
                 )
             ).pop()
 
@@ -85,18 +84,16 @@ class Validator:
     @classmethod
     def is_number(cls, value: str) -> dict:
         digit_pattern = re.compile("[0-9][0-9]*")
-        check = (
-            lambda x: {x: "<NUMBER>"} if digit_pattern.fullmatch(x) else {
-                x: None}
-        )
+        check = lambda x: {x: "<NUMBER>"} if digit_pattern.fullmatch(x) else {x: None}
         return check(value)
 
     @classmethod
     def is_plus_sign(cls, value: str) -> dict:
         plus_sign_pattern = re.compile("[+]")
         check = (
-            lambda x: {x: "<PLUS_SIGN>"} if plus_sign_pattern.fullmatch(x) else {
-                x: None}
+            lambda x: {x: "<PLUS_SIGN>"}
+            if plus_sign_pattern.fullmatch(x)
+            else {x: None}
         )
         return check(value)
 
@@ -104,8 +101,9 @@ class Validator:
     def is_minus_sign(cls, value: str) -> dict:
         plus_sign_pattern = re.compile("-")
         check = (
-            lambda x: {x: "<MINUS_SIGN>"} if plus_sign_pattern.fullmatch(x) else {
-                x: None}
+            lambda x: {x: "<MINUS_SIGN>"}
+            if plus_sign_pattern.fullmatch(x)
+            else {x: None}
         )
         return check(value)
 
@@ -202,49 +200,45 @@ class Validator:
     @classmethod
     def is_identifier(cls, value: str) -> dict:
         identifier = re.compile("[_|a-z|A-Z]([_|a-z|A-Z]|[0-9])*")
-        check = (
-            lambda x: {x: "<IDENTIFIER>"}
-            if identifier.fullmatch(x)
-            else {x: None}
-        )
+        check = lambda x: {x: "<IDENTIFIER>"} if identifier.fullmatch(x) else {x: None}
         return check(value)
 
     @classmethod
     def is_simple_type(cls, value: str) -> dict:
         simple_types = ["int", "real", "boolean"]
-        check = (
-            lambda x: {x: "<SIMPLE_TYPE>"}
-            if value in simple_types
-            else {x: None}
-        )
+        check = lambda x: {x: "<SIMPLE_TYPE>"} if value in simple_types else {x: None}
         return check(value)
 
     @classmethod
     def is_relation(cls, value: str) -> dict:
         relations = ["=", "<>", "<", "<=", ">=", ">"]
-        check = (
-            lambda x: {x: "<RELATION>"}
-            if value in relations
-            else {x: None}
-        )
+        check = lambda x: {x: "<RELATION>"} if value in relations else {x: None}
         return check(value)
 
     @classmethod
     def is_bool_value(cls, value: str) -> dict:
         booleans = ["true", "false"]
-        check = (
-            lambda x: {x: "<BOOL_VALUE>"}
-            if value in booleans
-            else {x: None}
-        )
+        check = lambda x: {x: "<BOOL_VALUE>"} if value in booleans else {x: None}
         return check(value)
 
     @classmethod
     def is_keyword(cls, value: str) -> dict:
-        keyword = ["program", "procedure", "var", "read", "write",
-                   "begin", "end", "if", "then", "else", "while", "do"]
+        keyword = [
+            "program",
+            "procedure",
+            "var",
+            "read",
+            "write",
+            "begin",
+            "end",
+            "if",
+            "then",
+            "else",
+            "while",
+            "do",
+        ]
         check = (
-            lambda x: {x: "<KEYWORD_"+x.upper()+">"}
+            lambda x: {x: "<KEYWORD_" + x.upper() + ">"}
             if value in keyword
             else {x: None}
         )
@@ -257,24 +251,28 @@ class Validator:
         while True:
             if i < len(tk_list):
                 # print(i, i+1)
-                if tk_list[i] == '<IDENTIFIER>':
+                if tk_list[i] == "<IDENTIFIER>":
                     checked = True
                 else:
                     break
-                if i+1 < len(tk_list) and tk_list[i+1] == '<COMMA>':
+                if i + 1 < len(tk_list) and tk_list[i + 1] == "<COMMA>":
                     checked = False
                     i += 1
             else:
                 break
             i += 1
         if checked:
-            return Token(tk_list, '<IDENTIFIER_LIST>', None)
+            return Token(tk_list, "<IDENTIFIER_LIST>", None)
         else:
             return Token("", None, None)
 
     @classmethod
     def is_var_declaration(cls, tk_list: list) -> dict:
-        if tk_list[0] == '<SIMPLE_TYPE>' and tk_list[-1] == '<COMMAND_END>' and cls.is_identifier_list(tk_list[1:-1]):
+        if (
+            tk_list[0] == "<SIMPLE_TYPE>"
+            and tk_list[-1] == "<COMMAND_END>"
+            and cls.is_identifier_list(tk_list[1:-1])
+        ):
             return Token("", "<VAR_DECLARATION>", None)
         return Token("", None, None)
 
@@ -284,43 +282,52 @@ class Validator:
         i = 0
         while True:
             if i < len(tk_list):
-                if tk_list[i] == '<VAR_DECLARATION>':
+                if tk_list[i] == "<VAR_DECLARATION>":
                     checked = True
                 else:
                     break
-                if i+1 < len(tk_list) and tk_list[i+1] == '<COMMAND_END>':
+                if i + 1 < len(tk_list) and tk_list[i + 1] == "<COMMAND_END>":
                     checked = False
                     i += 1
             else:
                 break
             i += 1
         if checked:
-            return Token(tk_list, '<VAR_DECLARATION_PART>', None)
+            return Token(tk_list, "<VAR_DECLARATION_PART>", None)
         else:
             return Token("", None, None)
 
     @classmethod
     def is_formal_parameter_section(cls, tk_list: list) -> dict:
-        i = 1 if tk_list[0] == '<KEYWORD_VAR>' else 0
-        if len(tk_list) > 2 and tk_list[i] == '<IDENTIFIER_LIST>' and tk_list[-2] == '<COLON>' and tk_list[-1] == '<SIMPLE_TYPE>':
+        i = 1 if tk_list[0] == "<KEYWORD_VAR>" else 0
+        if (
+            len(tk_list) > 2
+            and tk_list[i] == "<IDENTIFIER_LIST>"
+            and tk_list[-2] == "<COLON>"
+            and tk_list[-1] == "<SIMPLE_TYPE>"
+        ):
             return Token("", "<FORMAL_PARAMETERS_SECTION>", None)
         return Token("", None, None)
 
     @classmethod
     def is_formal_parameters(cls, tk_list: list) -> dict:
-        if len(tk_list) > 2 and tk_list[0] == '<OPEN_PARENTHESIS>' and tk_list[-1] == '<CLOSE_PARENTHESIS>':
+        if (
+            len(tk_list) > 2
+            and tk_list[0] == "<OPEN_PARENTHESIS>"
+            and tk_list[-1] == "<CLOSE_PARENTHESIS>"
+        ):
             checked = False
             i = 1
             while True:
-                if i < len(tk_list)-1:
-                    print(tk_list[i], tk_list[i+1])
-                    if tk_list[i] == '<FORMAL_PARAMETERS_SECTION>':
+                if i < len(tk_list) - 1:
+                    print(tk_list[i], tk_list[i + 1])
+                    if tk_list[i] == "<FORMAL_PARAMETERS_SECTION>":
                         checked = True
                     else:
                         break
-                    if i+1 < len(tk_list)-1:
+                    if i + 1 < len(tk_list) - 1:
                         checked = False
-                        if tk_list[i+1] != '<COMMAND_END>':
+                        if tk_list[i + 1] != "<COMMAND_END>":
                             break
                 else:
                     break
@@ -332,12 +339,14 @@ class Validator:
 
     @classmethod
     def is_procedure_declaration(cls, tk_list: list) -> dict:
-        if 3 < len(tk_list) <= 5 and \
-                tk_list[0] == '<KEYWORD_PROCEDURE>' and \
-                tk_list[1] == '<IDENTIFIER>' and \
-                tk_list[-2] == '<COMMAND_END>' and \
-                tk_list[-1] == '<BLOC>':
-            if len(tk_list) == 5 and tk_list[2] != '<FORMAL_PARAMETERS>':
+        if (
+            3 < len(tk_list) <= 5
+            and tk_list[0] == "<KEYWORD_PROCEDURE>"
+            and tk_list[1] == "<IDENTIFIER>"
+            and tk_list[-2] == "<COMMAND_END>"
+            and tk_list[-1] == "<BLOC>"
+        ):
+            if len(tk_list) == 5 and tk_list[2] != "<FORMAL_PARAMETERS>":
                 return Token("", None, None)
             return Token("", "<PROCEDURE_DECLARATION>", None)
         return Token("", None, None)
@@ -348,15 +357,31 @@ class Validator:
         checked = True
         while True:
             if i < len(tk_list):
-                if tk_list[i] != '<PROCEDURE_DECLARATION>' or tk_list[i+1] != '<COMMAND_END>':
+                if (
+                    tk_list[i] != "<PROCEDURE_DECLARATION>"
+                    or tk_list[i + 1] != "<COMMAND_END>"
+                ):
                     checked = False
             else:
                 break
             i += 2
         if checked:
-            return Token(tk_list, '<SUBROUTINES_DECLARATION_PART>', None)
+            return Token(tk_list, "<SUBROUTINES_DECLARATION_PART>", None)
         else:
             return Token("", None, None)
+
+    @classmethod
+    def is_program(cls, tk_list: list) -> Token:
+        if (
+            len(tk_list) == 5
+            and tk_list[0] == "<KEYWORD_PROGRAM>"
+            and tk_list[1] == "<IDENTIFIER>"
+            and tk_list[2] == "<COMMAND_END>"
+            and tk_list[3] == "<BLOC>"
+            and tk_list[4] == "<DOT>"
+        ):
+            return Token("", "<PROGRAM>", None)
+        return Token("", None, None)
 
 
 if __name__ == "__main__":
