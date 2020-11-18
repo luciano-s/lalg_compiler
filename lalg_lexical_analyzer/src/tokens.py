@@ -151,9 +151,15 @@ if __name__ == "__main__":
     #     ['<PROCEDURE_DECLARATION>', '<COMMAND_END>', '<PROCEDURE_DECLARATION>', '<COMMAND_END>'])
     # Tokens().generate_tokens(
     #     ['<COMMAND_END>'])
+    # Tokens().generate_tokens(
+    #     ["<KEYWORD_PROGRAM>", "<IDENTIFIER>", "<COMMAND_END>", "<BLOC>", "<DOT>"]
+    # )
+    Tokens().generate_tokens(["<VARIABLE>"])
+    Tokens().generate_tokens(["<NUMBER>"])
     Tokens().generate_tokens(
-        ["<KEYWORD_PROGRAM>", "<IDENTIFIER>", "<COMMAND_END>", "<BLOC>", "<DOT>"]
+        ["<OPEN_PARENTHESIS>", "<EXPRESSION>", "<CLOSE_PARENTHESIS>"]
     )
+    Tokens().generate_tokens(["<KEYWORD_NOT>", "<FACTOR>"])
 
     str_file = """program correto;
 int a, b, c;

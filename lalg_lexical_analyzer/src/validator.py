@@ -49,6 +49,7 @@ class Validator:
             Validator.is_procedure_declaration,
             Validator.is_subroutines_declaration_part,
             Validator.is_program,
+            Validator.is_factor,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -381,6 +382,18 @@ class Validator:
             and tk_list[4] == "<DOT>"
         ):
             return Token("", "<PROGRAM>", None)
+        return Token("", None, None)
+
+    @classmethod
+    def is_factor(cls, tk_list: list) -> Token:
+
+        if (
+            tk_list == ["<VARIABLE>"]
+            or tk_list == ["<NUMBER>"]
+            or tk_list == ["<OPEN_PARENTHESIS>", "<EXPRESSION>", "<CLOSE_PARENTHESIS>"]
+            or tk_list == ["<KEYWORD_NOT>", "<FACTOR>"]
+        ):
+            return Token("", "<FACTOR>", None)
         return Token("", None, None)
 
 
