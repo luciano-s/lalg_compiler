@@ -8,3 +8,10 @@ src/__pycache__/
 instance/
 .webassets-cache
 lalg_lexical_analyzer/.idea/
+/.idea/lalg_compiler.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
+/.idea/watcherTasks.xml
+/.idea/workspace.xml
