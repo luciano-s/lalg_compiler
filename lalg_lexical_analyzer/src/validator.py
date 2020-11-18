@@ -50,6 +50,7 @@ class Validator:
             Validator.is_subroutines_declaration_part,
             Validator.is_program,
             Validator.is_factor,
+            Validator.is_therm,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -395,6 +396,30 @@ class Validator:
         ):
             return Token("", "<FACTOR>", None)
         return Token("", None, None)
+
+    @classmethod
+    def is_therm(cls, tk_list: list) -> Token:
+        len_tk_list = len(tk_list)
+        if len_tk_list >= 1 and tk_list[0] == "<FACTOR>":
+            i = 1
+            checked = True
+            while True:
+                if i < len_tk_list:
+
+                    if not (
+                        tk_list[i]
+                        in ["<MULTIPLICATION_SIGN>", "<DIVISION_SIGN>", "<KEYWORD_AND>"]
+                        and (i + 1 < len_tk_list and tk_list[i + 1] == "<FACTOR>")
+                    ):
+                        checked = False
+                        break
+                else:
+                    break
+                i += 2
+            if checked:
+                return Token(tk_list, "<THERM>", None)
+            else:
+                return Token("", None, None)
 
 
 if __name__ == "__main__":

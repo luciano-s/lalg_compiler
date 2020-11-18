@@ -154,12 +154,27 @@ if __name__ == "__main__":
     # Tokens().generate_tokens(
     #     ["<KEYWORD_PROGRAM>", "<IDENTIFIER>", "<COMMAND_END>", "<BLOC>", "<DOT>"]
     # )
-    Tokens().generate_tokens(["<VARIABLE>"])
-    Tokens().generate_tokens(["<NUMBER>"])
+    # Tokens().generate_tokens(["<VARIABLE>"])
+    # Tokens().generate_tokens(["<NUMBER>"])
+    # Tokens().generate_tokens(
+    #     ["<OPEN_PARENTHESIS>", "<EXPRESSION>", "<CLOSE_PARENTHESIS>"]
+    # )
+    # Tokens().generate_tokens(["<KEYWORD_NOT>", "<FACTOR>"])
     Tokens().generate_tokens(
-        ["<OPEN_PARENTHESIS>", "<EXPRESSION>", "<CLOSE_PARENTHESIS>"]
+        ["<FACTOR>", "<MULTIPLICATION_SIGN>", "<FACTOR>", "<DIVISION_SIGN>", "<FACTOR>"]
     )
-    Tokens().generate_tokens(["<KEYWORD_NOT>", "<FACTOR>"])
+    Tokens().generate_tokens(
+        [
+            "<FACTOR>",
+            "<MULTIPLICATION_SIGN>",
+            "<FACTOR>",
+            "<MULTIPLICATION_SIGN>",
+            "<FACTOR>",
+        ]
+    )
+    Tokens().generate_tokens(["<FACTOR>", "<DIVISION_SIGN>", "<FACTOR>"])
+    Tokens().generate_tokens(["<FACTOR>", "<KEYWORD_AND>", "<FACTOR>"])
+    Tokens().generate_tokens(["<FACTOR>", "<KEYWORD_AND>"])
 
     str_file = """program correto;
 int a, b, c;
