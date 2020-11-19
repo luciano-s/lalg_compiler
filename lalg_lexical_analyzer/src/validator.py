@@ -52,6 +52,7 @@ class Validator:
             Validator.is_factor,
             Validator.is_therm,
             Validator.is_simple_expression,
+            Validator.is_expression,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -451,6 +452,31 @@ class Validator:
                         break
                 else:
                     break
+                i += 2
+
+            if checked:
+                return Token(tk_list, "<SIMPLE_EXPRESSION>", None)
+
+        return Token("", None, None)
+
+    @classmethod
+    def is_expression(cls, tk_list: list) -> Token:
+        len_tk_list = len(tk_list)
+
+        if len_tk_list >= 1 and tk_list[0] == "<SIMPLE_EXPRESSION>":
+            i = 1
+            checked = True
+            while i < len_tk_list:
+
+                if not (
+                    tk_list[i] == "<RELATION>"
+                    and (
+                        i + 1 < len_tk_list and tk_list[i + 1] == "<SIMPLE_EXPRESSION>"
+                    )
+                ):
+                    checked = False
+                    break
+
                 i += 2
 
             if checked:
