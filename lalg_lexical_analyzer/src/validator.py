@@ -54,6 +54,7 @@ class Validator:
             Validator.is_simple_expression,
             Validator.is_expression,
             Validator.is_expression_list,
+            Validator.is_variable,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -506,6 +507,12 @@ class Validator:
             return Token(tk_list, "<EXPRESSION_LIST>", None)
         else:
             return Token("", None, None)
+
+    @classmethod
+    def is_variable(cls, tk_list: list) -> Token:
+        if tk_list == ["<IDENTIFIER>"] or tk_list == ["<IDENTIFIER>", "<EXPRESSION>"]:
+            return Token(tk_list, "<VARIABLE>", None)
+        return Token(tk_list, None, None)
 
 
 if __name__ == "__main__":
