@@ -53,6 +53,7 @@ class Validator:
             Validator.is_therm,
             Validator.is_simple_expression,
             Validator.is_expression,
+            Validator.is_expression_list,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -483,6 +484,28 @@ class Validator:
                 return Token(tk_list, "<SIMPLE_EXPRESSION>", None)
 
         return Token("", None, None)
+
+    @classmethod
+    def is_expression_list(cls, tk_list: list):
+        checked = False
+        i = 0
+        while True:
+            if i < len(tk_list):
+                # print(i, i+1)
+                if tk_list[i] == "<EXPRESSION>":
+                    checked = True
+                else:
+                    break
+                if i + 1 < len(tk_list) and tk_list[i + 1] == "<COMMA>":
+                    checked = False
+                    i += 1
+            else:
+                break
+            i += 1
+        if checked:
+            return Token(tk_list, "<EXPRESSION_LIST>", None)
+        else:
+            return Token("", None, None)
 
 
 if __name__ == "__main__":
