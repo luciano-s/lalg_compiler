@@ -178,16 +178,33 @@ if __name__ == "__main__":
     # Tokens().generate_tokens(["<FACTOR>", "<KEYWORD_AND>", "<FACTOR>"])
     # Tokens().generate_tokens(["<FACTOR>", "<KEYWORD_AND>"])
 
-    Tokens().generate_tokens(["<THERM>", "<KEYWORD_OR>", "<THERM>"])
-    Tokens().generate_tokens(["<PLUS_SIGN>", "<THERM>", "<KEYWORD_OR>", "<THERM>"])
-    Tokens().generate_tokens(
-        ["<PLUS_SIGN>", "<THERM>", "<KEYWORD_OR>", "<THERM>", "<MINUS_SIGN>", "<THERM>"]
-    )
-    Tokens().generate_tokens(
-        ["<PLUS_SIGN>", "<THERM>", "<KEYWORD_OR>", "<THERM>", "<KEYWORD_OR>", "<THERM>"]
-    )
-    Tokens().generate_tokens(["<THERM>", "<KEYWORD_OR>", "<THERM>"])
-    Tokens().generate_tokens(["<THERM>", "<KEYWORD_OR>"])
+    # Tokens().generate_tokens(["<THERM>", "<KEYWORD_OR>", "<THERM>"])
+    # Tokens().generate_tokens(["<PLUS_SIGN>", "<THERM>", "<KEYWORD_OR>", "<THERM>"])
+    # Tokens().generate_tokens(
+    #     ["<PLUS_SIGN>", "<THERM>", "<KEYWORD_OR>", "<THERM>", "<MINUS_SIGN>", "<THERM>"]
+    # )
+    # Tokens().generate_tokens(
+    #     ["<PLUS_SIGN>", "<THERM>", "<KEYWORD_OR>", "<THERM>", "<KEYWORD_OR>", "<THERM>"]
+    # )
+    # Tokens().generate_tokens(["<THERM>", "<KEYWORD_OR>", "<THERM>"])
+    # Tokens().generate_tokens(["<THERM>", "<KEYWORD_OR>"])
+    # print(Tokens().split_token("or"))
+    # print(Tokens().split_token("and"))
+
+    # Tokens().generate_tokens(
+    #     ["<SIMPLE_EXPRESSION>", "<RELATION>", "<SIMPLE_EXPRESSION>"]
+    # )
+    # Tokens().generate_tokens(["<SIMPLE_EXPRESSION>"])
+    # Tokens().generate_tokens(["<SIMPLE_EXPRESSION>", "<RELATION>"])
+    # Tokens().generate_tokens(["<EXPRESSION>"])
+    # Tokens().generate_tokens(["<EXPRESSION>", "<EXPRESSION>"])
+    # Tokens().generate_tokens(
+    #     ["<EXPRESSION>", "<EXPRESSION>" "<EXPRESSION>", "<EXPRESSION>"]
+    # )
+    # Tokens().generate_tokens(["<IDENTIFIER>"])
+    # Tokens().generate_tokens(["<EXPRESSION>"])
+    # Tokens().generate_tokens(["<IDENTIFIER>", "<EXPRESSION>"])
+
     str_file = """program correto;
 int a, b, c;
 boolean d, e, f;
