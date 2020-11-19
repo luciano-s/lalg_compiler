@@ -239,6 +239,8 @@ class Validator:
             "else",
             "while",
             "do",
+            "and",
+            "or",
         ]
         check = (
             lambda x: {x: "<KEYWORD_" + x.upper() + ">"}
