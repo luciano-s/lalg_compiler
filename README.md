@@ -14,4 +14,4 @@ Running application:
 
  
 # Link para o Analisador Léxico
-https://lalg-lexical-analyzer.herokuapp.com/compiler/lexical_analyzer
+https://lalg-compiler.herokuapp.com/compiler/lexical_analyzer
