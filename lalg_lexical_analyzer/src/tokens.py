@@ -1,8 +1,4 @@
-# from src.validator import Validator
-# from src.token import Token
-
-from validator import Validator
-from token import Token
+from src.validator import Validator
 
 
 class Tokens:
@@ -32,7 +28,7 @@ class Tokens:
                 # print("P:", previous_token)
                 token_type = self.validator.validate_lexem(previous_token)
                 # token_list.append(Token(previous_token, token_type[previous_token], col)
-                token_list.append(token_type[previous_token])
+                token_list.append((token_type, col - len(previous_token), col))
                 previous_token = ""
 
                 if c not in ["", " ", "\t"]:
@@ -62,7 +58,7 @@ class Tokens:
         # print("P:", previous_token)
         if previous_token not in ["", " ", "\t"]:
             token_type = self.validator.validate_lexem(previous_token)
-            token_list.append(token_type[previous_token])
+            token_list.append((token_type, col - len(previous_token), col))
 
         return token_list
 
@@ -77,7 +73,7 @@ class Tokens:
             token_list.append(token)
         # token_type = self.validator.validate_token(inputs)
 
-        print(inputs, "->", token_type.token)
+        # print(inputs, "->", token_type.token)
 
 
 if __name__ == "__main__":

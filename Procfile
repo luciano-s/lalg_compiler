@@ -1,0 +1,1 @@
+web: gunicorn app:lalg_lexical_analyzer/app --log-file=-

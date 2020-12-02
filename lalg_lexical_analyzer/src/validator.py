@@ -1,5 +1,5 @@
 import re
-from token import Token
+from src.token import Token
 
 
 class Validator:
