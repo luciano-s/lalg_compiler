@@ -39,10 +39,12 @@ class Validator:
             Validator.is_colon,
             Validator.is_dot,
             Validator.is_equals_sign,
+            Validator.is_simple_type,
         ]
         self.token_validators = [
             Validator.is_identifier_list,
             Validator.is_var_declaration,
+            Validator.is_simple_type,
             Validator.is_part_var_declaration,
             Validator.is_formal_parameter_section,
             Validator.is_formal_parameters,
@@ -54,7 +56,7 @@ class Validator:
             Validator.is_simple_expression,
             Validator.is_expression,
             Validator.is_expression_list,
-            Validator.is_variable,
+            # Validator.is_variable,
         ]
 
     def validate_lexem(self, lexem: str) -> dict:
@@ -79,7 +81,6 @@ class Validator:
                     [validator(tk_list) for validator in self.token_validators],
                 )
             ).pop()
-
         except Exception as inst:
             # print(inst)
             return Token("", None, None)
@@ -513,6 +514,10 @@ class Validator:
         if tk_list == ["<IDENTIFIER>"] or tk_list == ["<IDENTIFIER>", "<EXPRESSION>"]:
             return Token(tk_list, "<VARIABLE>", None)
         return Token(tk_list, None, None)
+
+
+
+
 
 
 if __name__ == "__main__":

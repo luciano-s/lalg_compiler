@@ -66,15 +66,15 @@ class Tokens:
         return [self.split_token(in_) for in_ in inputs]
 
     def generate_tokens(self, inputs: list) -> list:
+        # [<TIPO_SIMPLES>, <IDENTIFIER>, <COMMA>, <IDENTIFIER>. <SINAL_IGUAL>]
         token_list = []
         for token in inputs:
-            token_type = self.validator.validate_token([*token_list, token])
+            token_type = self.validator.validate_token([*token_list, token[1]])
             # print([*token_list, token])
             token_list.append(token)
         # token_type = self.validator.validate_token(inputs)
-
+        return token_list
         # print(inputs, "->", token_type.token)
-
 
 if __name__ == "__main__":
     # print(Tokens().split_token("program correto;"))
