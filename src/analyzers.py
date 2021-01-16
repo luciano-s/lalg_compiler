@@ -353,6 +353,53 @@ class Analyzers:
                         return Token(tk_list[initial: i], "<FORMAL_PARAMETER_SECTION>", (initial, i))
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
+    @staticmethod
+    def is_formal_parameters(tk_list, i):
+        initial = i
+        if tk_list[i][1] == "<OPEN_PARENTHESIS>":
+            res = Analyzers.is_formal_parameter_section(tk_list, i+1)
+            if res.token == "<FORMAL_PARAMETER_SECTION>":
+                while res.token == "<FORMAL_PARAMETER_SECTION>":
+                    i = res.col[1] + i
+                    if tk_list[i+1][1] == "<SEMICOLON>":
+                        res = Analyzers.is_formal_parameter_section(tk_list, i+1)
+                        i = res.col[1] + i 
+                        if tk_list[i+1][1] == "<CLOSE_PARENTHESIS>":
+                            return Token(tk_list[initial:i], "<FORMAL_PARAMETERS>", (initial, i))
+
+        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
+
+    @staticmethod
+    def is_procedure_declaration(tk_list, i):
+        initial = i
+        if tk_list[i][1] == "<KEYWORD_PROCEDURE>":
+            if tk_list[i+1][1] == "<IDENTIFIER>":
+                res = Analyzers.is_formal_parameters(tk_list, i+2)
+                if res.token == "<FORMAL_PARAMETERS>" and tk_list[i+res.col[1]+1] == "<SEMICOLON>":
+                    i = res.col[1] + i + 1
+                    res = Analyzers.is_bloc(tk_list, i+1)
+                    if res.token == "<BLOC>":
+                        return Token(tk_list[initial:i], "<PROCEDURE_DECLARATION>", (initial, i))
+                elif tk_list[i+2][1] == "<SEMICOLON>":
+                    i += 2
+                    res = Analyzers.is_bloc(tk_list, i+1)
+                    if res.token == "<BLOC>":
+                        return Token(tk_list[initial:i], "<PROCEDURE_DECLARATION>", (initial, i))
+        
+        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
+
+    @staticmethod
+    def is_part_subroutine_declaration(tk_list, i):
+        initial = i
+        res = Analyzers.is_procedure_declaration(tk_list, i+1)
+        if res.token == "<PROCEDURE_DECLARATION>":
+            if tk_list[i][1] == "<OPEN_BRACKET>":
+                i = res.col[1] + i
+                if tk_list[i+1][1] == "<COLON>":
+                    i +=1
+                    if tk_list[i+1][1] == "<CLOSE_BRACKET>":
+                        return Token(tk_list[initial:i], "<PART_SUBROUTINE_DECLARATION>", (initial, i))
+        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
     @staticmethod
     def syntax_analyzer_for_variable(validated_lexems):
