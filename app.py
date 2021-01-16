@@ -28,7 +28,23 @@ def syntax_analyzer():
         expression = request.form["expression"]
         leaf_tokens = Analyzers.lexical_analyzer(expression=expression)
         print(f"leaf_tokens(app): {leaf_tokens}")
-        # input()
+        tokens = Analyzers.syntax_analyzer_for_variable(validated_lexems=leaf_tokens)
+        print(f"tokens (app): {tokens}")
+
+        return render_template(
+            "syntax_analyzer.html",
+            input=expression,
+            tokens=tokens,
+        )
+
+@app.route("/compiler/syntax_analyzer/run", methods=["GET", "POST"])
+def run_syntax_analyzer():
+    if request.method == "GET":
+        return render_template("index.html")
+    elif request.method == "POST":
+        expression = request.form["expression"]
+        leaf_tokens = Analyzers.lexical_analyzer(expression=expression)
+        print(f"leaf_tokens: {leaf_tokens}")
         tokens = Analyzers.syntax_analyzer(validated_lexems=leaf_tokens)
         print(f"tokens (app): {tokens}")
 
@@ -41,3 +57,5 @@ def syntax_analyzer():
 
 if __name__ == "__main__":
     app.run(debug=True, port=9000)
+
+

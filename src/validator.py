@@ -18,7 +18,8 @@ class Validator:
             "<SINGLE_LINE_COMMENT>" "<CHARACTER>": {},
             "<IDENTIFIER>": {"validate": Validator.is_identifier},
             "<COMMAND_END>": {"validate": Validator.is_command_end},
-            "<SIMPLE_TYPE>": {},
+            "<SIMPLE_TYPE>": {"validate": Validator.is_simple_type},
+            "<COLON>":{"validate":Validator.is_colon}
         }
         self.validators = [
             Validator.is_number,

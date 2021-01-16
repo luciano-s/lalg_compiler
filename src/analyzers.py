@@ -156,7 +156,7 @@ class Analyzers:
     def is_assignment(tk_list: list, i: int):
         initial = i
         res = Analyzers.is_variable(tk_list, i)
-        if res.token == "<VARIABLE>" and tk_list[res.col[1]+1] == "<EQUALS_SIGN>"):
+        if res.token == "<VARIABLE>" and tk_list[res.col[1]+1] == "<EQUALS_SIGN>":
             i = res.col[1] + 2
             res = Analyzers.is_expression(tk_list, i)
             if res.token == "<EXPRESSION>":
@@ -310,7 +310,66 @@ class Analyzers:
     def is_conditional_command_1(tk_list: list, i: int):
         initial = i
         if tk_list[i][1] == "<KEYWORD_IF>":
-            res = Analyzers.is_expression
+            res = Analyzers.is_expression(tk_list, i+1)
+            if res.token == "<EXPRESSION>":
+                i = res.col[1] + i
+                if tk_list[i+1][1] == "<KEYWORD_THEN>":
+                    res = Analyzers.is_command(tk_list, i+1)
+                    if res.token == "<COMMAND>":
+                        i = res.col[1] + i
+                        if tk_list[i+1][1] ==  "<KEYWORD_ELSE>":
+                            res = Analyzers.is_command(tk_list, i+1)
+                            if res.token == "<COMMAND>":
+                                i = res.col[1] + i
+                        return Token(tk_list[initial: i], "<CONDITIONAL_COMMAND_1>", (initial, i))
+        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
+
+    @staticmethod
+    def is_repetitive_command(tk_list, i):
+        initial = i
+        if tk_list[i][1] == "<KEYWORD_WHILE>":
+            res = Analyzers.is_expression(tk_list, i+1)
+            if res.token == "<EXPRESSION>":
+                i = res.col[1] + i
+                if tk_list[i+1][1] == "<KEYWORD_DO>":
+                    res = Analyzers.is_command(tk_list, i+1)
+                    if res.token == "<COMMAND>":
+                            i = res.col[1] + i
+                            return Token(tk_list[initial: i], "<REPETITIVE_COMMAND_1>", (initial, i))
+        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
+        
+    @staticmethod
+    def is_formal_parameter_section(tk_list, i):
+        initial = i
+        if tk_list[i][1] == "<KEYWORD_VAR>":
+            res = Analyzers.is_identifier_list(tk_list, i+1)
+            if res.token == "<IDENTIFIER_LIST>":
+                i = res.col[1] + i
+                if tk_list[i+1][1] == "<COLON>":
+                    i +=1
+                    res = Analyzers.is_identifier(tk_list, i+1)
+                    if res.token == "<IDENTIFIER>":
+                        i = res.col[1] + i
+                        return Token(tk_list[initial: i], "<FORMAL_PARAMETER_SECTION>", (initial, i))
+        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
+
+
+    @staticmethod
+    def syntax_analyzer_for_variable(validated_lexems):
+        i = 0
+        new_tokens = []
+        while i < len(validated_lexems):
+
+            res = Analyzers.is_variable_declaration_part(tk_list=validated_lexems, i=i)
+            print(res)
+            print(res.lexem)
+            if res.token != "<ERROR>":
+                i = res.col[1]
+            else:
+                return [*new_tokens, res]
+            new_tokens.append(res)
+            print(*new_tokens)
+        return new_tokens
 
     @staticmethod
     def syntax_analyzer(validated_lexems):
@@ -318,16 +377,14 @@ class Analyzers:
         new_tokens = []
         while i < len(validated_lexems):
 
-            # print(validated_lexems[i])
-            res = Analyzers.is_variable_declaration_part(tk_list=validated_lexems, i=i)
+            res = Analyzers.is_program(tk_list=validated_lexems, i=i)
             print(res)
             print(res.lexem)
-            # input()
             if res.token != "<ERROR>":
                 i = res.col[1]
             else:
                 return [*new_tokens, res]
             new_tokens.append(res)
             print(*new_tokens)
-            # input()
+
         return new_tokens
