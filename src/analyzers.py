@@ -91,6 +91,8 @@ class Analyzers:
             and tk_list[i + 1][1] == "<IDENTIFIER>"
             and tk_list[i + 2][1] == "<COMMAND_END>"
         ):
+            # print("")
+            # input()
             res = Analyzers.is_bloc(tk_list, i + 3)
             i = res.col[1]  # get the end of the block
             if res.token == "<BLOC>" and tk_list[i + 1][1] == "<DOT>":
@@ -105,13 +107,13 @@ class Analyzers:
         if res.token == "<VARIABLE_DECLARATION_PART>":
             i = res.col[1]
 
-        res = Analyzers.is_subroutines_declaration_part(tk_list, i)
+        res = Analyzers.is_subroutine_declaration_part(tk_list, i)
         if res.token == "<SUBROUTINE_DECLARATION_PART>":
             i = res.col[1]
 
         res = Analyzers.is_composite_command(tk_list, i)
         if res.token == "<COMPOSITE_COMMAND>":
-            return Token(tk_list[initial:i], "<BLOC>", (initial, i + 1))
+            return Token(tk_list[initial:i], "<BLOC>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
@@ -121,18 +123,18 @@ class Analyzers:
         if tk_list[i][1] == "<KEYWORD_BEGIN>":
             res = Analyzers.is_command(tk_list, i+1)
             if res.token == "<COMMAND>":
-                i = res.col[1] + 1
-                while i < len(tk_list) and i + 1 < len(tk_list):
+                i = res.col[1]
+                while i + 1 < len(tk_list):
                     res = Analyzers.is_command(tk_list, i+1)
                     if tk_list[i][1] == "<COMMAND_END>" and res.token == "<COMMAND>":
-                        i = res.col[1] + 1
+                        i = res.col[1]
                     else:
                         break
                 if tk_list[i][1] == "<KEYWORD_END>":
                     return Token(tk_list[initial:i], "<COMPOSITE_COMMAND>", (initial, i + 1))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
-
+    
     @staticmethod
     def is_command(tk_list: list, i: int):
         initial = i
@@ -142,13 +144,14 @@ class Analyzers:
             "<PROCEDURE_CALL>": Analyzers.is_procedure_call, 
             "<COMPOSITE_COMMAND>": Analyzers.is_composite_command,
             "<CONDITIONAL_COMMAND_1>": Analyzers.is_conditional_command_1,
-            "<WHILE_COMMAND_1>": Analyzers.is_while_command_1
+            "<REPETITIVE_COMMAND_1>": Analyzers.is_repetitive_command
         }
         
         for token_type in conditions:
             res = conditions[token_type](tk_list, i)
             if res.token == token_type:
-                return Token(tk_list[initial:i], "<COMMAND>", (initial, i + 1))
+                i = res.col[1]
+                return Token(tk_list[initial:i], "<COMMAND>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
             
@@ -156,12 +159,12 @@ class Analyzers:
     def is_assignment(tk_list: list, i: int):
         initial = i
         res = Analyzers.is_variable(tk_list, i)
-        if res.token == "<VARIABLE>" and tk_list[res.col[1]+1] == "<EQUALS_SIGN>":
-            i = res.col[1] + 2
+        if res.token == "<VARIABLE>" and tk_list[res.col[1]][1] == "<EQUALS_SIGN>":
+            i = res.col[1] + 1
             res = Analyzers.is_expression(tk_list, i)
             if res.token == "<EXPRESSION>":
                 i = res.col[1]
-                return Token(tk_list[initial:i], "<ASSIGMENT>", (initial, i + 1))
+                return Token(tk_list[initial:i], "<ASSIGNMENT>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
@@ -178,18 +181,17 @@ class Analyzers:
     @staticmethod
     def is_expression(tk_list: list, i: int):
         initial = i
-        res = Analyzers.is_simple_expression(tk_list, i+1)
+        res = Analyzers.is_simple_expression(tk_list, i)
         if res.token == "<SIMPLE_EXPRESSION>":
             i = res.col[1]
-            if tk_list[i+1][1] == "<RELATION>":
-                i+=1 # arrumar aqui
+            if tk_list[i][1] == "<RELATION>":
                 res = Analyzers.is_simple_expression(tk_list, i+1)
                 if res.token == "<SIMPLE_EXPRESSION>":
                     i = res.col[1]
                 else:
                     return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
-            return Token(tk_list[initial:i], "<VARIABLE>", (initial, i + 1))
+            return Token(tk_list[initial:i], "<EXPRESSION>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
     
@@ -203,17 +205,17 @@ class Analyzers:
         ):
             has_sign = True
 
-        res = Analyzers.is_THERM(tk_list, i+1 if has_sign  else i)
+        res = Analyzers.is_therm(tk_list, i+1 if has_sign  else i)
         if res.token == "<THERM>":
-            i = res.col[1] + 1
-            while i < len(tk_list) and i + 1 < len(tk_list):
-                res = Analyzers.is_THERM(tk_list, i+1)
+            i = res.col[1]
+            while i + 1 < len(tk_list):
+                res = Analyzers.is_therm(tk_list, i+1)
                 if (
                     tk_list[i][1] == "<PLUS_SIGN>"
                     or tk_list[i][1] == "<MINUS_SIGN>"
                     or tk_list[i][1] == "<KEYWORD_OR>"
                 ) and res.token == "<THERM>":
-                    i = res.col[1] + 1
+                    i = res.col[1]
                 else:
                     break
             return Token(tk_list[initial:i], "<SIMPLE_EXPRESSION>", (initial, i))
@@ -225,17 +227,18 @@ class Analyzers:
         initial = i
         res = Analyzers.is_factor(tk_list, i)
         if res.token == "<FACTOR>":
-            i = res.col[1] + 1
-            while i < len(tk_list) and i + 1 < len(tk_list):
+            i = res.col[1]
+            while i + 1 < len(tk_list):
                 res = Analyzers.is_factor(tk_list, i+1)
                 if tk_list[i][1] in [
                     "<MULTIPLICATION_SIGN>", 
                     "<DIVISION_SIGN>", 
                     "<KEYWORD_AND>"
                 ] and res.token == "<FACTOR>":
-                    i = res.col[1] + 1
+                    i = res.col[1]
                 else:
                     break
+
             return Token(tk_list[initial:i], "<THERM>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
@@ -243,33 +246,38 @@ class Analyzers:
     @staticmethod
     def is_factor(tk_list: list, i: int):
         initial = i
+        has_factor = False
         while True:
             res = Analyzers.is_variable(tk_list, i)
             if res.token == "<VARIABLE>":
                 i = res.col[1]
+                has_factor = True
                 break
 
             if tk_list[i][1] == "<NUMBER>": # TODO: arrumar, pois até lexemas tem col[ini, end]
                 i+=1
+                has_factor = True
                 break
             
             if tk_list[i][1] == "<OPEN_PARENTHESIS>":
                 res = Analyzers.is_expression(tk_list, i+1)
                 if res.token == "<EXPRESSION>":
-                    i = res.col[1]+1
-                    if tk_list[i][1] == "<CLOSE_PARENTHESIS>":
+                    if tk_list[res.col[1]][1] == "<CLOSE_PARENTHESIS>":
+                        i = res.col[1]+1
+                        has_factor = True
                         break
 
             if tk_list[i][1] == "<KEYWORD_NOT>":
                 res = Analyzers.is_factor(tk_list, i+1)
                 if res.token == "<FACTOR>":
                     i = res.col[1]
+                    has_factor = True
                     break
             
             break
 
-        if initial != i:
-            return Token(tk_list[initial:i], "<FACTOR>", (initial, i + 1))
+        if has_factor:
+            return Token(tk_list[initial:i], "<FACTOR>", (initial, i))
 
         return Token(tk_list[initial : i], "<ERROR>", (initial, i + 1))
 
@@ -312,16 +320,15 @@ class Analyzers:
         if tk_list[i][1] == "<KEYWORD_IF>":
             res = Analyzers.is_expression(tk_list, i+1)
             if res.token == "<EXPRESSION>":
-                i = res.col[1] + i
-                if tk_list[i+1][1] == "<KEYWORD_THEN>":
-                    res = Analyzers.is_command(tk_list, i+1)
-                    if res.token == "<COMMAND>":
-                        i = res.col[1] + i
-                        if tk_list[i+1][1] ==  "<KEYWORD_ELSE>":
-                            res = Analyzers.is_command(tk_list, i+1)
-                            if res.token == "<COMMAND>":
-                                i = res.col[1] + i
-                        return Token(tk_list[initial: i], "<CONDITIONAL_COMMAND_1>", (initial, i))
+                i = res.col[1]
+                res = Analyzers.is_command(tk_list, i)
+                if res.token == "<COMMAND>":
+                    i = res.col[1]
+                    if tk_list[i][1] ==  "<KEYWORD_ELSE>":
+                        res = Analyzers.is_command(tk_list, i+1)
+                        if res.token == "<COMMAND>":
+                            i = res.col[1]
+                    return Token(tk_list[initial: i], "<CONDITIONAL_COMMAND_1>", (initial, i))
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
     @staticmethod
@@ -344,12 +351,11 @@ class Analyzers:
         if tk_list[i][1] == "<KEYWORD_VAR>":
             res = Analyzers.is_identifier_list(tk_list, i+1)
             if res.token == "<IDENTIFIER_LIST>":
-                i = res.col[1] + i
-                if tk_list[i+1][1] == "<COLON>":
+                i = res.col[1]
+                if tk_list[i][1] == "<COLON>":
                     i +=1
-                    res = Analyzers.is_identifier(tk_list, i+1)
-                    if res.token == "<IDENTIFIER>":
-                        i = res.col[1] + i
+                    if tk_list[i][1] == "<SIMPLE_TYPE>":
+                        i+=1
                         return Token(tk_list[initial: i], "<FORMAL_PARAMETER_SECTION>", (initial, i))
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
@@ -359,13 +365,16 @@ class Analyzers:
         if tk_list[i][1] == "<OPEN_PARENTHESIS>":
             res = Analyzers.is_formal_parameter_section(tk_list, i+1)
             if res.token == "<FORMAL_PARAMETER_SECTION>":
-                while res.token == "<FORMAL_PARAMETER_SECTION>":
-                    i = res.col[1] + i
-                    if tk_list[i+1][1] == "<SEMICOLON>":
-                        res = Analyzers.is_formal_parameter_section(tk_list, i+1)
-                        i = res.col[1] + i 
-                        if tk_list[i+1][1] == "<CLOSE_PARENTHESIS>":
-                            return Token(tk_list[initial:i], "<FORMAL_PARAMETERS>", (initial, i))
+                i = res.col[1]
+                while i < len(tk_list) and i + 1 < len(tk_list):
+                    res = Analyzers.is_formal_parameter_section(tk_list, i+1)
+                    if tk_list[i][1] == "<COMMAND_END>" and res.token == "<FORMAL_PARAMETERS>":
+                        i+=res.col[1] + 2
+                    else:
+                        break
+                
+                if tk_list[i][1] == "<CLOSE_PARENTHESIS>":
+                    return Token(tk_list[initial:i], "<FORMAL_PARAMETERS>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
@@ -375,30 +384,29 @@ class Analyzers:
         if tk_list[i][1] == "<KEYWORD_PROCEDURE>":
             if tk_list[i+1][1] == "<IDENTIFIER>":
                 res = Analyzers.is_formal_parameters(tk_list, i+2)
-                if res.token == "<FORMAL_PARAMETERS>" and tk_list[i+res.col[1]+1] == "<SEMICOLON>":
-                    i = res.col[1] + i + 1
+                if res.token == "<FORMAL_PARAMETERS>" and tk_list[res.col[1]+1][1] == "<COMMAND_END>":
+                    i = res.col[1] + 1
                     res = Analyzers.is_bloc(tk_list, i+1)
                     if res.token == "<BLOC>":
+                        i = res.col[1]
                         return Token(tk_list[initial:i], "<PROCEDURE_DECLARATION>", (initial, i))
-                elif tk_list[i+2][1] == "<SEMICOLON>":
-                    i += 2
+                elif tk_list[i+1][1] == "<COMMAND_END>":
+                    i += 1
                     res = Analyzers.is_bloc(tk_list, i+1)
                     if res.token == "<BLOC>":
+                        i = res.col[1] + 1
                         return Token(tk_list[initial:i], "<PROCEDURE_DECLARATION>", (initial, i))
         
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
     @staticmethod
-    def is_part_subroutine_declaration(tk_list, i):
+    def is_subroutine_declaration_part(tk_list, i):
         initial = i
-        res = Analyzers.is_procedure_declaration(tk_list, i+1)
+        res = Analyzers.is_procedure_declaration(tk_list, i)
         if res.token == "<PROCEDURE_DECLARATION>":
-            if tk_list[i][1] == "<OPEN_BRACKET>":
-                i = res.col[1] + i
-                if tk_list[i+1][1] == "<COLON>":
-                    i +=1
-                    if tk_list[i+1][1] == "<CLOSE_BRACKET>":
-                        return Token(tk_list[initial:i], "<PART_SUBROUTINE_DECLARATION>", (initial, i))
+            i = res.col[1] 
+            # TODO: Fazer loop para <PROCEDURE_DECLARATION> <COMMAND_END>
+                        return Token(tk_list[initial:i], "<SUBROUTINE_DECLARATION_PART>", (initial, i))
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
 
     @staticmethod
@@ -425,8 +433,8 @@ class Analyzers:
         while i < len(validated_lexems):
 
             res = Analyzers.is_program(tk_list=validated_lexems, i=i)
-            print(res)
-            print(res.lexem)
+            # print(res)
+            # print(res.lexem)
             if res.token != "<ERROR>":
                 i = res.col[1]
             else:
