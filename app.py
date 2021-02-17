@@ -37,6 +37,7 @@ def syntax_analyzer():
             tokens=tokens,
         )
 
+
 @app.route("/compiler/syntax_analyzer/run", methods=["GET", "POST"])
 def run_syntax_analyzer():
     if request.method == "GET":
@@ -57,5 +58,3 @@ def run_syntax_analyzer():
 
 if __name__ == "__main__":
     app.run(debug=True, port=9000)
-
-

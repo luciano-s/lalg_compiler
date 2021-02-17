@@ -33,7 +33,7 @@ class Analyzers:
         initial = i
         if tk_list[i][1] == "<IDENTIFIER>":
             i += 1
-            while i < len(tk_list) and i + 1 < len(tk_list):
+            while i + 1 < len(tk_list):
                 if tk_list[i][1] == "<COMMA>" and tk_list[i + 1][1] == "<IDENTIFIER>":
                     i += 2
                 else:
@@ -113,6 +113,7 @@ class Analyzers:
 
         res = Analyzers.is_composite_command(tk_list, i)
         if res.token == "<COMPOSITE_COMMAND>":
+            i = res.col[1]
             return Token(tk_list[initial:i], "<BLOC>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
@@ -131,7 +132,7 @@ class Analyzers:
                     else:
                         break
                 if tk_list[i][1] == "<KEYWORD_END>":
-                    return Token(tk_list[initial:i], "<COMPOSITE_COMMAND>", (initial, i + 1))
+                    return Token(tk_list[initial:i], "<COMPOSITE_COMMAND>", (initial, i))
 
         return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
     
@@ -161,6 +162,8 @@ class Analyzers:
         res = Analyzers.is_variable(tk_list, i)
         if res.token == "<VARIABLE>" and tk_list[res.col[1]][1] == "<EQUALS_SIGN>":
             i = res.col[1] + 1
+            if i > 70:
+                batata=352
             res = Analyzers.is_expression(tk_list, i)
             if res.token == "<EXPRESSION>":
                 i = res.col[1]
@@ -403,11 +406,17 @@ class Analyzers:
     def is_subroutine_declaration_part(tk_list, i):
         initial = i
         res = Analyzers.is_procedure_declaration(tk_list, i)
-        if res.token == "<PROCEDURE_DECLARATION>":
-            i = res.col[1] 
-            # TODO: Fazer loop para <PROCEDURE_DECLARATION> <COMMAND_END>
-                        return Token(tk_list[initial:i], "<SUBROUTINE_DECLARATION_PART>", (initial, i))
-        return Token(tk_list[initial : i + 1], "<ERROR>", (initial, i + 1))
+        if tk_list[res.col[1]+1][1] == "<COMMAND_END>" and res.token == "<PROCEDURE_DECLARATION>":
+            i = res.col[1] + 2
+            while i + 1 < len(tk_list):
+                res = Analyzers.is_procedure_declaration(tk_list, i)
+                if tk_list[i+1][1] == "<COMMAND_END>" and res.token == "<PROCEDURE_DECLARATION>":
+                    i += res.col[1] + 2
+                else:
+                    break
+            return Token(tk_list[initial:i], "<SUBROUTINE_DECLARATION_PART>", (initial, i))
+
+        return Token(tk_list[initial: i + 1], "<ERROR>", (initial, i + 1))
 
     @staticmethod
     def syntax_analyzer_for_variable(validated_lexems):
