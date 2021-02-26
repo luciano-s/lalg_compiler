@@ -1,3 +1,4 @@
+from src.analyzers_semantic import Analyzers2
 from src.token_ import Token_
 from src.tokens import Tokens
 from src.validator import Validator
@@ -376,7 +377,7 @@ class Analyzers:
                 errors.append({"message": f"simple expression expected after relation", "line": tk_list[current_i][3], "col": tk_list[current_i][4].split("-")[0]})
                 i = Analyzers.error(current_i, tk_list, follow)
                 # não tenho certeza se retornamos erro ou só pulamos mesmo
-                # return Token(tk_list[initial: i + 1], "<ERROR>", (initial, i + 1)), errors
+                # return Token_(tk_list[initial: i + 1], "<ERROR>", (initial, i + 1)), errors
 
             return Token_(tk_list[initial:i], "<EXPRESSION>", (initial, i)), errors
 
@@ -1128,7 +1129,18 @@ class Analyzers:
     def syntax_analyzer(validated_lexems):
         i = 0
         new_tokens = []
+        errors_semantic = []
+        errors = []
         res, errors = Analyzers.is_program(tk_list=validated_lexems, i=i)
+        if len(errors) == 0:
+            try:
+                Analyzers2.is_program(tk_list=validated_lexems, i=0)
+                Analyzers2.semantic_analyzer.search_for_non_used_variables()
+                print("\n\n\n\nOUTPUT SEMANTIC ANALYSIS")
+                print(Analyzers2.semantic_analyzer.errors)
+                errors_semantic = Analyzers2.semantic_analyzer.get_errors()
+            except:
+                errors_semantic.append(["Um erro ocorreu durante a análise semânctica!"])
         # res, errors = Analyzers.is_assignment(tk_list=validated_lexems, i=i)
         # res, errors = Analyzers.is_assignment(tk_list=validated_lexems, i=i)
         # res, errors = Analyzers.is_factor(tk_list=validated_lexems, i=i)
@@ -1149,4 +1161,4 @@ class Analyzers:
         new_tokens.append(res)
         # print(*new_tokens)
 
-        return new_tokens, errors
+        return new_tokens, errors, errors_semantic

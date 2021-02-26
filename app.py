@@ -47,14 +47,15 @@ def run_syntax_analyzer():
         expression = request.form["expression"]
         leaf_tokens = Analyzers.lexical_analyzer(expression=expression)
         print(f"leaf_tokens: {leaf_tokens}")
-        tokens, errors = Analyzers.syntax_analyzer(validated_lexems=leaf_tokens)
+        tokens, errors, e_s = Analyzers.syntax_analyzer(validated_lexems=leaf_tokens)
         print(f"tokens (app): {len(tokens)}")
 
         return render_template(
             "syntax_analyzer.html",
             input=expression,
             tokens=tokens,
-            errors=errors
+            errors=errors,
+            serrors=e_s
         )
 
 
