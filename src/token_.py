@@ -1,4 +1,4 @@
-class Token:
+class Token_:
     def __init__(self, lexem, token, col):
 
         self.token = token

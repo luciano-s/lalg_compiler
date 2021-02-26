@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3aa4aff4-1c57-42c2-a9e0-4cd432a25d62" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/lalg_compiler.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/lalg_lexical_analyzer.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/analyzers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/templates/syntax_analyzer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/syntax_analyzer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/token_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tokens.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tokens.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/validator.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="84d7108a-6871-49c8-ae7e-e5de5c5e2831" />
+  <component name="ProjectId" id="1owm7qNcJLCVgbT4v3KYGN94gfd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.app">
+    <configuration name="analyzers" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="lalg_compiler" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/analyzers.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="lalg_compiler" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.app" />
+        <item itemvalue="Python.analyzers" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3aa4aff4-1c57-42c2-a9e0-4cd432a25d62" name="Default Changelist" comment="" />
+      <created>1614205862510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614205862510</updated>
+      <workItem from="1614205863555" duration="24361000" />
+      <workItem from="1614292462155" duration="40218000" />
+      <workItem from="1614380154253" duration="33933000" />
+      <workItem from="1614522214942" duration="4922000" />
+      <workItem from="1614527331701" duration="183000" />
+      <workItem from="1614527526699" duration="348000" />
+      <workItem from="1614527886288" duration="159000" />
+      <workItem from="1614528056643" duration="36000" />
+      <workItem from="1614528094487" duration="2063000" />
+      <workItem from="1614573119886" duration="161000" />
+      <workItem from="1614595934613" duration="7021000" />
+      <workItem from="1614632503623" duration="15151000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="258" y="94" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1614527665971">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state x="258" y="94" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1600.872@0.0.1600.872" timestamp="1614527665971" />
+    <state x="208" y="155" width="374" height="563" key="#com.intellij.ide.util.MemberChooser" timestamp="1614296197231">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state x="208" y="155" width="374" height="563" key="#com.intellij.ide.util.MemberChooser/0.0.1600.872@0.0.1600.872" timestamp="1614296197231" />
+    <state x="718" y="262" key="#xdebugger.evaluate" timestamp="1614217617465">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="718" y="262" key="#xdebugger.evaluate/0.0.1920.1052@0.0.1920.1052" timestamp="1614217617465" />
+    <state width="1302" height="481" key="DebuggerActiveHint" timestamp="1614686550080">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="1302" height="481" key="DebuggerActiveHint/0.0.1600.872@0.0.1600.872" timestamp="1614686550080" />
+    <state width="1562" height="580" key="DebuggerActiveHint/0.0.1920.1052@0.0.1920.1052" timestamp="1614229725239" />
+    <state x="619" y="235" width="415" height="403" key="FileChooserDialogImpl" timestamp="1614528090634">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state x="619" y="235" width="415" height="403" key="FileChooserDialogImpl/0.0.1600.872@0.0.1600.872" timestamp="1614528090634" />
+    <state x="743" y="284" width="424" height="485" key="FileChooserDialogImpl/0.0.1920.1052@0.0.1920.1052" timestamp="1614221374120" />
+    <state width="538" height="707" key="GridCell.Tab.0.bottom" timestamp="1614688458991">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.0.bottom/0.0.1600.872@0.0.1600.872" timestamp="1614688458991" />
+    <state width="796" height="887" key="GridCell.Tab.0.bottom/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072621" />
+    <state width="538" height="707" key="GridCell.Tab.0.center" timestamp="1614688458991">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.0.center/0.0.1600.872@0.0.1600.872" timestamp="1614688458991" />
+    <state width="796" height="887" key="GridCell.Tab.0.center/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072620" />
+    <state width="538" height="707" key="GridCell.Tab.0.left" timestamp="1614688458991">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.0.left/0.0.1600.872@0.0.1600.872" timestamp="1614688458991" />
+    <state width="796" height="887" key="GridCell.Tab.0.left/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072620" />
+    <state width="538" height="707" key="GridCell.Tab.0.right" timestamp="1614688458991">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.0.right/0.0.1600.872@0.0.1600.872" timestamp="1614688458991" />
+    <state width="796" height="887" key="GridCell.Tab.0.right/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072621" />
+    <state width="538" height="707" key="GridCell.Tab.1.bottom" timestamp="1614688458992">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.1.bottom/0.0.1600.872@0.0.1600.872" timestamp="1614688458992" />
+    <state width="796" height="887" key="GridCell.Tab.1.bottom/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072621" />
+    <state width="538" height="707" key="GridCell.Tab.1.center" timestamp="1614688458992">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.1.center/0.0.1600.872@0.0.1600.872" timestamp="1614688458992" />
+    <state width="796" height="887" key="GridCell.Tab.1.center/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072621" />
+    <state width="538" height="707" key="GridCell.Tab.1.left" timestamp="1614688458991">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.1.left/0.0.1600.872@0.0.1600.872" timestamp="1614688458991" />
+    <state width="796" height="887" key="GridCell.Tab.1.left/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072621" />
+    <state width="538" height="707" key="GridCell.Tab.1.right" timestamp="1614688458992">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state width="538" height="707" key="GridCell.Tab.1.right/0.0.1600.872@0.0.1600.872" timestamp="1614688458992" />
+    <state width="796" height="887" key="GridCell.Tab.1.right/0.0.1920.1052@0.0.1920.1052" timestamp="1614231072621" />
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.bottom" timestamp="1614208532353">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.bottom/0.0.1920.1052@0.0.1920.1052" timestamp="1614208532353" />
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.center" timestamp="1614208532353">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.center/0.0.1920.1052@0.0.1920.1052" timestamp="1614208532353" />
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.left" timestamp="1614208537376">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.left/0.0.1920.1052@0.0.1920.1052" timestamp="1614208537376" />
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.right" timestamp="1614208532353">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1685" y="189" width="235" height="832" key="GridCell.Tab.2.right/0.0.1920.1052@0.0.1920.1052" timestamp="1614208532353" />
+    <state x="534" y="153" width="842" height="746" key="RollbackChangesDialog" timestamp="1614206716440">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="534" y="153" width="842" height="746" key="RollbackChangesDialog/0.0.1920.1052@0.0.1920.1052" timestamp="1614206716440" />
+    <state x="434" y="161" width="1052" height="731" key="SettingsEditor" timestamp="1614206967217">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="434" y="161" width="1052" height="731" key="SettingsEditor/0.0.1920.1052@0.0.1920.1052" timestamp="1614206967217" />
+    <state x="613" y="138" width="955" height="665" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1614687958664">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state x="613" y="138" width="955" height="665" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1600.872@0.0.1600.872" timestamp="1614687958664" />
+    <state x="736" y="167" width="955" height="698" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1052@0.0.1920.1052" timestamp="1614230577896" />
+    <state x="1845" y="1021" width="235" height="863" key="dock-window-1" timestamp="1614207694427">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1845" y="1021" width="235" height="863" key="dock-window-1/0.0.1920.1052@0.0.1920.1052" timestamp="1614207694427" />
+    <state x="1789" y="1021" width="235" height="863" key="dock-window-2" timestamp="1614207694427">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1789" y="1021" width="235" height="863" key="dock-window-2/0.0.1920.1052@0.0.1920.1052" timestamp="1614207694427" />
+    <state x="1685" y="189" width="235" height="863" key="dock-window-3" timestamp="1614208582495">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1685" y="189" width="235" height="863" key="dock-window-3/0.0.1920.1052@0.0.1920.1052" timestamp="1614208582495" />
+    <state x="1396" y="241" width="235" height="863" key="dock-window-4" timestamp="1614209010487">
+      <screen x="0" y="0" width="1920" height="1052" />
+    </state>
+    <state x="1396" y="241" width="235" height="863" key="dock-window-4/0.0.1920.1052@0.0.1920.1052" timestamp="1614209010487" />
+    <state x="667" y="0" width="667" height="872" key="find.popup" timestamp="1614599747425">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state x="667" y="0" width="667" height="872" key="find.popup/0.0.1600.872@0.0.1600.872" timestamp="1614599747425" />
+    <state x="519" y="192" width="672" height="562" key="search.everywhere.popup" timestamp="1614632891327">
+      <screen x="0" y="0" width="1600" height="872" />
+    </state>
+    <state x="519" y="192" width="672" height="562" key="search.everywhere.popup/0.0.1600.872@0.0.1600.872" timestamp="1614632891327" />
+    <state x="623" y="232" width="672" height="678" key="search.everywhere.popup/0.0.1920.1052@0.0.1920.1052" timestamp="1614215494342" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/analyzers.py</url>
+          <line>208</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/analyzers.py</url>
+          <line>169</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/analyzers.py</url>
+          <line>221</line>
+          <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/analyzers.py</url>
+          <line>367</line>
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/analyzers.py</url>
+          <line>311</line>
+          <option name="timeStamp" value="185" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/analyzers.py</url>
+          <line>514</line>
+          <option name="timeStamp" value="188" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/lalg_compiler$analyzers.coverage" NAME="analyzers Coverage Results" MODIFIED="1614528112458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/lalg_compiler$app.coverage" NAME="app Coverage Results" MODIFIED="1614683327456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

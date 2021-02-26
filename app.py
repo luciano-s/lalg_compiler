@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask import jsonify
+
 from src.analyzers import Analyzers
 
 app = Flask(__name__, template_folder="src/templates", static_folder="src/static")
@@ -41,7 +42,7 @@ def syntax_analyzer():
 @app.route("/compiler/syntax_analyzer/run", methods=["GET", "POST"])
 def run_syntax_analyzer():
     if request.method == "GET":
-        return render_template("index.html")
+        return render_template("syntax_analyzer.html")
     elif request.method == "POST":
         expression = request.form["expression"]
         leaf_tokens = Analyzers.lexical_analyzer(expression=expression)

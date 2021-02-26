@@ -1,5 +1,5 @@
 import re
-from src.token import Token
+from src.token_ import Token_
 
 
 class Validator:
@@ -34,7 +34,6 @@ class Validator:
             Validator.is_close_parenthesis,
             Validator.is_simple_type,
             Validator.is_keyword,
-            Validator.is_bool_value,
             Validator.is_command_end,
             Validator.is_comma,
             Validator.is_colon,
@@ -73,7 +72,7 @@ class Validator:
             # print(inst)
             return {lexem: None}
 
-    def validate_token(self, tk_list: list) -> Token:
+    def validate_token(self, tk_list: list) -> Token_:
         # print(tk_list)
         try:
             return list(
@@ -84,7 +83,7 @@ class Validator:
             ).pop()
         except Exception as inst:
             # print(inst)
-            return Token("", None, None)
+            return Token_("", None, None)
 
     def validate_lexems(self, lexem_list: list) -> list:
         return [self.validate_lexem(lexem) for lexem in lexem_list]
@@ -235,8 +234,6 @@ class Validator:
             "program",
             "procedure",
             "var",
-            "read",
-            "write",
             "begin",
             "end",
             "if",
@@ -273,9 +270,9 @@ class Validator:
                 break
             i += 1
         if checked:
-            return Token(tk_list, "<IDENTIFIER_LIST>", None)
+            return Token_(tk_list, "<IDENTIFIER_LIST>", None)
         else:
-            return Token("", None, None)
+            return Token_("", None, None)
 
     @classmethod
     def is_var_declaration(cls, tk_list: list) -> dict:
@@ -284,8 +281,8 @@ class Validator:
             and tk_list[-1] == "<COMMAND_END>"
             and cls.is_identifier_list(tk_list[1:-1])
         ):
-            return Token("", "<VAR_DECLARATION>", None)
-        return Token("", None, None)
+            return Token_("", "<VAR_DECLARATION>", None)
+        return Token_("", None, None)
 
     @classmethod
     def is_part_var_declaration(cls, tk_list: list) -> dict:
@@ -304,9 +301,9 @@ class Validator:
                 break
             i += 1
         if checked:
-            return Token(tk_list, "<VAR_DECLARATION_PART>", None)
+            return Token_(tk_list, "<VAR_DECLARATION_PART>", None)
         else:
-            return Token("", None, None)
+            return Token_("", None, None)
 
     @classmethod
     def is_formal_parameter_section(cls, tk_list: list) -> dict:
@@ -317,8 +314,8 @@ class Validator:
             and tk_list[-2] == "<COLON>"
             and tk_list[-1] == "<SIMPLE_TYPE>"
         ):
-            return Token("", "<FORMAL_PARAMETERS_SECTION>", None)
-        return Token("", None, None)
+            return Token_("", "<FORMAL_PARAMETERS_SECTION>", None)
+        return Token_("", None, None)
 
     @classmethod
     def is_formal_parameters(cls, tk_list: list) -> dict:
@@ -344,9 +341,9 @@ class Validator:
                     break
                 i += 2
             if checked:
-                return Token("", "<FORMAL_PARAMETERS>", None)
+                return Token_("", "<FORMAL_PARAMETERS>", None)
 
-        return Token("", None, None)
+        return Token_("", None, None)
 
     @classmethod
     def is_procedure_declaration(cls, tk_list: list) -> dict:
@@ -358,9 +355,9 @@ class Validator:
             and tk_list[-1] == "<BLOC>"
         ):
             if len(tk_list) == 5 and tk_list[2] != "<FORMAL_PARAMETERS>":
-                return Token("", None, None)
-            return Token("", "<PROCEDURE_DECLARATION>", None)
-        return Token("", None, None)
+                return Token_("", None, None)
+            return Token_("", "<PROCEDURE_DECLARATION>", None)
+        return Token_("", None, None)
 
     @classmethod
     def is_subroutines_declaration_part(cls, tk_list: list) -> dict:
@@ -377,12 +374,12 @@ class Validator:
                 break
             i += 2
         if checked:
-            return Token(tk_list, "<SUBROUTINES_DECLARATION_PART>", None)
+            return Token_(tk_list, "<SUBROUTINES_DECLARATION_PART>", None)
         else:
-            return Token("", None, None)
+            return Token_("", None, None)
 
     @classmethod
-    def is_program(cls, tk_list: list) -> Token:
+    def is_program(cls, tk_list: list) -> Token_:
         if (
             len(tk_list) == 5
             and tk_list[0] == "<KEYWORD_PROGRAM>"
@@ -391,11 +388,11 @@ class Validator:
             and tk_list[3] == "<BLOC>"
             and tk_list[4] == "<DOT>"
         ):
-            return Token("", "<PROGRAM>", None)
-        return Token("", None, None)
+            return Token_("", "<PROGRAM>", None)
+        return Token_("", None, None)
 
     @classmethod
-    def is_factor(cls, tk_list: list) -> Token:
+    def is_factor(cls, tk_list: list) -> Token_:
 
         if (
             tk_list == ["<VARIABLE>"]
@@ -403,11 +400,11 @@ class Validator:
             or tk_list == ["<OPEN_PARENTHESIS>", "<EXPRESSION>", "<CLOSE_PARENTHESIS>"]
             or tk_list == ["<KEYWORD_NOT>", "<FACTOR>"]
         ):
-            return Token("", "<FACTOR>", None)
-        return Token("", None, None)
+            return Token_("", "<FACTOR>", None)
+        return Token_("", None, None)
 
     @classmethod
-    def is_therm(cls, tk_list: list) -> Token:
+    def is_therm(cls, tk_list: list) -> Token_:
         len_tk_list = len(tk_list)
         if len_tk_list >= 1 and tk_list[0] == "<FACTOR>":
             i = 1
@@ -426,12 +423,12 @@ class Validator:
                     break
                 i += 2
             if checked:
-                return Token(tk_list, "<THERM>", None)
+                return Token_(tk_list, "<THERM>", None)
 
-        return Token("", None, None)
+        return Token_("", None, None)
 
     @classmethod
-    def is_simple_expression(cls, tk_list: list) -> Token:
+    def is_simple_expression(cls, tk_list: list) -> Token_:
         len_tk_list = len(tk_list)
 
         if len_tk_list >= 1 and tk_list[0] in [
@@ -443,7 +440,7 @@ class Validator:
             if tk_list[0] != "<THERM>":
                 i += 1
                 if tk_list[1] != "<THERM>":
-                    return Token("", None, None)
+                    return Token_("", None, None)
 
             checked = True
             while True:
@@ -460,12 +457,12 @@ class Validator:
                 i += 2
 
             if checked:
-                return Token(tk_list, "<SIMPLE_EXPRESSION>", None)
+                return Token_(tk_list, "<SIMPLE_EXPRESSION>", None)
 
-        return Token("", None, None)
+        return Token_("", None, None)
 
     @classmethod
-    def is_expression(cls, tk_list: list) -> Token:
+    def is_expression(cls, tk_list: list) -> Token_:
         len_tk_list = len(tk_list)
 
         if len_tk_list >= 1 and tk_list[0] == "<SIMPLE_EXPRESSION>":
@@ -485,9 +482,9 @@ class Validator:
                 i += 2
 
             if checked:
-                return Token(tk_list, "<SIMPLE_EXPRESSION>", None)
+                return Token_(tk_list, "<SIMPLE_EXPRESSION>", None)
 
-        return Token("", None, None)
+        return Token_("", None, None)
 
     @classmethod
     def is_expression_list(cls, tk_list: list):
@@ -507,15 +504,15 @@ class Validator:
                 break
             i += 1
         if checked:
-            return Token(tk_list, "<EXPRESSION_LIST>", None)
+            return Token_(tk_list, "<EXPRESSION_LIST>", None)
         else:
-            return Token("", None, None)
+            return Token_("", None, None)
 
     @classmethod
-    def is_variable(cls, tk_list: list) -> Token:
+    def is_variable(cls, tk_list: list) -> Token_:
         if tk_list == ["<IDENTIFIER>"] or tk_list == ["<IDENTIFIER>", "<EXPRESSION>"]:
-            return Token(tk_list, "<VARIABLE>", None)
-        return Token(tk_list, None, None)
+            return Token_(tk_list, "<VARIABLE>", None)
+        return Token_(tk_list, None, None)
 
 
 

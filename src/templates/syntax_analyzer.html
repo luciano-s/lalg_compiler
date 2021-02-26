@@ -68,31 +68,6 @@
             </form>
         </div>
     </div>
-    <div class="row justify-content-md-center">
-        <div class="col col-lg-12">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Token</th>
-                    <th scope="col">Valid</th>
-                    <th scope="col">Line</th>
-                    <th scope="col">Column</th>
-                </tr>
-                </thead>
-                <tbody>
-                {%- for tk in tokens %}
-
-                    <tr>
-                        <td>{{ tk.token }}</td>
-                        <td>{{ tk.is_valid }}</td>
-                        <td>{{ tk.get_line() }}</td>
-                        <td>{{ tk.get_column() }}</td>
-                    </tr>
-                {%- endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
     {%- if errors|length > 0 %}
         <div class="row justify-content-md-center">
             <div class="col col-lg-12">
@@ -118,6 +93,32 @@
             </div>
         </div>
     {% endif %}
+    <br/><br/>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Token</th>
+                    <th scope="col">Valid</th>
+                    <th scope="col">Line</th>
+                    <th scope="col">Column</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%- for tk in tokens %}
+
+                    <tr>
+                        <td>{{ tk.token }}</td>
+                        <td>{{ tk.is_valid }}</td>
+                        <td>{{ tk.get_line() }}</td>
+                        <td>{{ tk.get_column() }}</td>
+                    </tr>
+                {%- endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="row justify-content-md-end pb-2 mt-4 mb-2">
         <div class="col col-lg-6">
             © 2020 <a target="_blank" href="https://github.com/gilmarfrancisco828">Gilmar Francisco de O. Santos</a> e

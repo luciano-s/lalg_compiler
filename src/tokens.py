@@ -4,6 +4,7 @@ from src.validator import Validator
 class Tokens:
     def __init__(self):
         self.validator = Validator()
+        self.has_comment = False
 
     def verify_composite(self, in_, col, token_list):
         if in_ != "":
@@ -16,9 +17,23 @@ class Tokens:
         token_list = []
         number = ""
         error = ""
-        col = 1
+        col = 0
         previous_token = ""
+        line_comment = input.find("//")
         for c in input:
+            col += 1
+            if c == "{" or col == line_comment+1:
+                self.has_comment = True
+                if previous_token not in ["", " ", "\t"]:
+                    token_type = self.validator.validate_lexem(previous_token)
+                    token_list.append((token_type, col, col + 1))
+                    previous_token=""
+                continue
+            elif c == "}" and self.has_comment:
+                self.has_comment = False
+                continue
+            elif self.has_comment:
+                continue
             # current_token = self.validator.validate_lexem(c)
             current_token = self.validator.validate_lexem(previous_token + c)
             # print("P:", previous_token+c)
@@ -38,19 +53,6 @@ class Tokens:
 
             if c in ["", " ", "\t"]:
                 continue
-            # if current_token[c] == "<NUMBER>" or c == ".":
-            #     number += c
-            #     error = self.verify_composite(error, col, token_list)
-            # elif current_token[c] is None and c != " ":
-            #     error += c
-            #     number = self.verify_composite(number, col, token_list)
-            # else:
-            #     number = self.verify_composite(number, col, token_list)
-            #     error = self.verify_composite(error, col, token_list)
-            #     if c != " ":
-            #         token_list.append((col, col+1, current_token))
-
-            col += 1
             previous_token += c
 
         # number=self.verify_composite(number, col, token_list)
@@ -58,7 +60,13 @@ class Tokens:
         # print("P:", previous_token)
         if previous_token not in ["", " ", "\t"]:
             token_type = self.validator.validate_lexem(previous_token)
-            token_list.append((token_type, col - len(previous_token), col))
+            if len(previous_token) == 1:
+                token_list.append((token_type, col, col+1))
+            else:
+                token_list.append((token_type, col - len(previous_token)+1, col+1))
+
+        if line_comment != -1:
+            self.has_comment = False
 
         return token_list
 
