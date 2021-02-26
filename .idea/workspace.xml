@@ -20,17 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3aa4aff4-1c57-42c2-a9e0-4cd432a25d62" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/lalg_compiler.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/lalg_lexical_analyzer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analyzers.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/syntax_analyzer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/syntax_analyzer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/token_.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tokens.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tokens.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/validator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +145,7 @@
       <workItem from="1614528094487" duration="2063000" />
       <workItem from="1614573119886" duration="161000" />
       <workItem from="1614595934613" duration="7021000" />
-      <workItem from="1614632503623" duration="15151000" />
+      <workItem from="1614632503623" duration="16308000" />
     </task>
     <servers />
   </component>
