@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask import jsonify
 from src.analyzers import Analyzers
 
-app = Flask(__name__, template_folder="src/templates")
+app = Flask(__name__, template_folder="src/templates", static_folder="src/static")
 
 
 @app.route("/compiler/lexical_analyzer", methods=["GET", "POST"])
@@ -46,13 +46,14 @@ def run_syntax_analyzer():
         expression = request.form["expression"]
         leaf_tokens = Analyzers.lexical_analyzer(expression=expression)
         print(f"leaf_tokens: {leaf_tokens}")
-        tokens = Analyzers.syntax_analyzer(validated_lexems=leaf_tokens)
-        print(f"tokens (app): {tokens}")
+        tokens, errors = Analyzers.syntax_analyzer(validated_lexems=leaf_tokens)
+        print(f"tokens (app): {len(tokens)}")
 
         return render_template(
             "syntax_analyzer.html",
             input=expression,
             tokens=tokens,
+            errors=errors
         )
 
 

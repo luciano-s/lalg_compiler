@@ -11,7 +11,12 @@ class Token:
         return f"token: {self.token}, column: {self.col}"
 
     def get_line(self):
-        return str(self.lexem[0][3]) + "-" + str(self.lexem[-1][3])
+        if len(self.lexem) > 0:
+            return str(self.lexem[0][3]) + "-" + str(self.lexem[-1][3])
+        return ""
 
     def get_column(self):
-        return self.lexem[0][4].split("-")[0] + "-" + self.lexem[-1][4].split("-")[1]
+        if len(self.lexem) > 0:
+            return self.lexem[0][4].split("-")[0] + "-" + self.lexem[-1][4].split("-")[1]
+        else:
+            return ""

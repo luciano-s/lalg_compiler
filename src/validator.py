@@ -219,7 +219,7 @@ class Validator:
 
     @classmethod
     def is_relation(cls, value: str) -> dict:
-        relations = ["=", "<>", "<", "<=", ">=", ">"]
+        relations = ["==", "<>", "<", "<=", ">=", ">"]
         check = lambda x: {x: "<RELATION>"} if value in relations else {x: None}
         return check(value)
 
@@ -246,6 +246,7 @@ class Validator:
             "do",
             "and",
             "or",
+            "not",
         ]
         check = (
             lambda x: {x: "<KEYWORD_" + x.upper() + ">"}

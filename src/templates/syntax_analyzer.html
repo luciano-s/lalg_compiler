@@ -1,82 +1,158 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <meta charset="utf-8">
-  <title>LALG Syntax Analyzer</title>
-  <style>
-    #expression {
-      width: 100%;
-      resize: none;
-    }
-  </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='codemirror/lib/codemirror.css') }}">
+    <script src="{{ url_for('static', filename='codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ url_for('static', filename='codemirror/mode/pascal/pascal.js') }}"></script>
+    <script src="{{ url_for('static', filename='codemirror/addon/selection/active-line.js') }}"></script>
+
+    <meta charset="utf-8">
+    <title>LALG Syntax Analyzer</title>
+    <style>
+        #expression {
+            width: 100%;
+            resize: none;
+        }
+    </style>
+    <style>
+        .CodeMirror {
+            width: 100%;
+            color: #495057;
+            background-color: #fff;
+            outline: 0;
+            border-radius: .25rem;
+            font-size: 1.5em;
+            border: 1px solid #ced4da;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .CodeMirror:focus-within{
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        #expression{
+            height: 300px;
+            color: #495057;
+            background-color: #fff;
+            outline: 0;
+            border-radius: .25rem;
+            font-size: 1.5em;
+            border: 1px solid #ced4da;
+            transition: all .15s ease-in-out;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
     <div class="row justify-content-md-center">
-      <div class="pb-2 mt-4 mb-2 border-bottom">
-        <h1>LALG Syntax Analyzer</h1>
-      </div>
+        <div class="pb-2 mt-4 mb-2 border-bottom">
+            <h1>LALG Syntax Analyzer</h1>
+        </div>
     </div>
     <div class="row justify-content-md-center">
-      <div class="col col-lg-12">
-        <form action="?" method="POST">
-          <div class="input-group mb-3">
+        <div class="col col-lg-12">
+            <form action="?" method="POST" onsubmit="DoSubmit()">
+                <div class="input-group mb-3">
             <textarea class="form-control" id="expression" name="expression" placeholder="Expressão"
-              rows="5">{% if input %}{{input}}{% endif %}</textarea>
-          </div>
-          <div class="input-group mb-6">
-            <input type="file" class="form-control" id="inputfile">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit">Confirmar</button>
-            </div>
-          </div>
-        </form>
-      </div>
+                      rows="5">{% if input %}{{ input }}{% endif %}</textarea>
+                </div>
+                <div class="input-group mb-6">
+                    <input type="file" class="form-control" id="inputfile">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Confirmar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="row justify-content-md-center">
-      <div class="col col-lg-12">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Token</th>
-              <th scope="col">Valid</th>
-              <th scope="col">Line</th>
-              <th scope="col">Column</th>
-            </tr>
-          </thead>
-          <tbody>
-            {%- for tk in tokens %}
+        <div class="col col-lg-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Token</th>
+                    <th scope="col">Valid</th>
+                    <th scope="col">Line</th>
+                    <th scope="col">Column</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%- for tk in tokens %}
 
-            <tr>
-              <td>{{ tk.token }}</td>
-              <td>{{ tk.is_valid }}</td>
-              <td>{{ tk.get_line() }}</td>
-              <td>{{ tk.get_column() }}</td>
-            </tr>
-            {%- endfor %}
-          </tbody>
-        </table>
-      </div>
+                    <tr>
+                        <td>{{ tk.token }}</td>
+                        <td>{{ tk.is_valid }}</td>
+                        <td>{{ tk.get_line() }}</td>
+                        <td>{{ tk.get_column() }}</td>
+                    </tr>
+                {%- endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+    {%- if errors|length > 0 %}
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Error</th>
+                        <th scope="col">Line</th>
+                        <th scope="col">Column</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%- for err in errors %}
+
+                        <tr>
+                            <td>{{ err.message }}</td>
+                            <td>{{ err.line }}</td>
+                            <td>{{ err.col }}</td>
+                        </tr>
+                    {%- endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
     <div class="row justify-content-md-end pb-2 mt-4 mb-2">
-      <div class="col col-lg-6">
-        © 2020 <a target="_blank" href="https://github.com/gilmarfrancisco828">Gilmar Francisco de O. Santos</a> e
-        <a target="_blank" href="https://github.com/luciano-s/">Luciano Carlos Simeão Junior</a>
-      </div>
+        <div class="col col-lg-6">
+            © 2020 <a target="_blank" href="https://github.com/gilmarfrancisco828">Gilmar Francisco de O. Santos</a> e
+            <a target="_blank" href="https://github.com/luciano-s/">Luciano Carlos Simeão Junior</a>
+        </div>
     </div>
 </body>
 
 </html>
-
 <script type="text/javascript">
-  document.getElementById('inputfile').addEventListener('change', function () {
-    var fr = new FileReader();
-    fr.onload = function () {
-      document.getElementById('expression').value = fr.result;
-    }
-    fr.readAsText(this.files[0]);
-  })
-</script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("expression"), {
+            mode: "text/x-pascal",
+            styleActiveLine: true,
+            lineNumbers: true,
+            lineWrapping: true
+        });
+        document.getElementById('inputfile').addEventListener('change', function () {
+            var fr = new FileReader();
+            fr.onload = function () {
+                editor.getDoc().setValue(fr.result);
+                editor.onChange()
+            }
+            fr.readAsText(this.files[0]);
+        });
+        var nonEmpty = false;
+
+        function toggleSelProp() {
+            nonEmpty = !nonEmpty;
+            editor.setOption("styleActiveLine", {nonEmpty: nonEmpty});
+            var label = nonEmpty ? 'Disable nonEmpty option' : 'Enable nonEmpty option';
+            document.getElementById('toggleButton').innerText = label;
+        }
+
+        function DoSubmit() {
+            document.getElementById('expression').value = editor.getValue();
+            return true;
+        }
+    </script>
